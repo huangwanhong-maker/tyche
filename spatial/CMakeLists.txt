@@ -1,0 +1,7 @@
+add_library(tyche_spatial INTERFACE)
+add_library(tyche::spatial ALIAS tyche_spatial)
+target_include_directories(tyche_spatial INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_features(tyche_spatial INTERFACE cxx_std_20)
+if(TYCHE_CHECKS)
+  tyche_add_check(check_tyche_spatial SOURCES tests/check_conditioning.cpp LIBRARIES tyche::spatial calx::linalg calx::random)
+endif()

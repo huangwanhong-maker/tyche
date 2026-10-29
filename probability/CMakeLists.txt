@@ -1,0 +1,8 @@
+add_library(tyche_probability INTERFACE)
+add_library(tyche::probability ALIAS tyche_probability)
+target_include_directories(tyche_probability INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_features(tyche_probability INTERFACE cxx_std_20)
+target_link_libraries(tyche_probability INTERFACE calx::special_functions calx::solvers)
+if(TYCHE_CHECKS)
+  tyche_add_check(check_tyche_probability SOURCES tests/check_probability.cpp LIBRARIES tyche::probability)
+endif()

@@ -1,0 +1,8 @@
+add_library(tyche_descriptive INTERFACE)
+add_library(tyche::descriptive ALIAS tyche_descriptive)
+target_include_directories(tyche_descriptive INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_features(tyche_descriptive INTERFACE cxx_std_20)
+target_link_libraries(tyche_descriptive INTERFACE calx::linalg)
+if(TYCHE_CHECKS)
+  tyche_add_check(check_tyche_descriptive SOURCES tests/check_descriptive.cpp LIBRARIES tyche::descriptive)
+endif()
