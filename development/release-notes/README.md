@@ -13,5 +13,6 @@ A running record, for readers, of what each commit made possible or better. It i
 
 | Date | Commits |
 |---|---|
+| [2026-10-31](2026-10-31.md) | Spectral inference, harmonic analysis, and point patterns |
 | [2026-10-30](2026-10-30.md) | Contributors, their terms, and a steward |
 | [2026-10-29](2026-10-29.md) | tyche founded: probability, the description of samples, regression, time series, and Gaussian conditioning |

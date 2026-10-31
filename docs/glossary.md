@@ -51,3 +51,7 @@
 | Critical values | MacKinnon (2010) with T the observations of the test regression (ADF) or n − 1 (Engle–Granger) |
 | VAR information criteria | Lütkepohl's: the mK² slope coefficients counted, not the intercepts (statsmodels counts them; the argmin is the same) |
 | Impulse responses | Θ_i(a, b): variable a at horizon i after a one-standard-deviation orthogonal shock b, P the lower Cholesky factor of Σ̂_u (the ordering of the variables matters) |
+| Spectral densities | one-sided, as calx's `signal` and scipy: a bin 0 < f < fs/2 holds the power of ±f (c = 2), the bins at 0 and fs/2 their own (c = 1); every estimate integrates to the variance (divisor n); white noise of variance σ² lies at 2σ²/fs |
+| Cross spectrum | S_xy = mean of conj(X) Y: its phase is arg Y − arg X, so y lagging x by τ has arg S_xy = −2πfτ |
+| Harmonic phase | a constituent A cos(2πf(t − t₀) − φ), φ = atan2(b, a) ∈ [0, 2π) for a cos + b sin: greatest φ/(2πf) after t₀ (the phase lag of tidal analysis) |
+| Red-noise background | the AR(1) with the series' lag-one autocorrelation and variance (divisor n) |

@@ -13,6 +13,7 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0002](0002-scope-boundaries-and-dependencies.md) | Scope, boundaries and dependencies | Accepted |
 | [0003](0003-the-first-modules.md) | The first modules: probability, descriptive statistics, regression and time series | Accepted, provisionally |
 | [0004](0004-gaussian-conditioning.md) | Gaussian conditioning, the first content of `spatial` | Accepted, provisionally |
+| [0005](0005-spectral-inference-harmonics-and-point-patterns.md) | Spectral inference, harmonic analysis, Lomb–Scargle, and point patterns of marks | Accepted, provisionally |
 
 ## 2. Template
 
