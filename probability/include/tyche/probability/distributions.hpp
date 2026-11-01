@@ -156,11 +156,15 @@ struct StudentT {
     return detail::sf::log_gamma((nu + 1) / 2) - detail::sf::log_gamma(nu / 2) - 0.5 * std::log(nu * std::numbers::pi) - (nu + 1) / 2 * std::log1p(t * t / nu);
   }
   double pdf(double t) const { return std::exp(log_pdf(t)); }
-  // P(T > t) for t ≥ 0, accurate in both regimes.
+  // P(T > t) for t ≥ 0, accurate in both regimes: ½ I_x(ν/2, ½) with x = ν/(ν + t²) by the direct
+  // continued fraction wherever calx's beta_i would use it (x below (a + 1)/(a + b + 2), so the tail
+  // keeps its relative accuracy however small: for large ν this holds already from t ≈ 1.7, which a
+  // switch at t² = ν missed, losing every digit of tails below 10⁻¹⁶, as at ν = 3000, t = 10),
+  // and ½ − ½ I_y(½, ν/2) with y = t²/(ν + t²) formed exactly otherwise, where the tail is not small.
   double upper_half(double t) const {
-    const double t2 = t * t;
-    if (t2 < nu) return 0.5 - 0.5 * detail::sf::beta_i(0.5, nu / 2, t2 / (nu + t2));
-    return 0.5 * detail::sf::beta_i(nu / 2, 0.5, nu / (nu + t2));
+    const double t2 = t * t, a = nu / 2, b = 0.5, x = nu / (nu + t2);
+    if (x < (a + 1) / (a + b + 2)) return 0.5 * detail::sf::beta_i(a, b, x);
+    return 0.5 - 0.5 * detail::sf::beta_i(b, a, t2 / (nu + t2));
   }
   double cdf(double t) const {
     validate();

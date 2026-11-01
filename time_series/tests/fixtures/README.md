@@ -2,6 +2,7 @@
 
 | File | Content | Source | Retrieved |
 |---|---|---|---|
+| `changepoint-reference.txt` | 40 series with planted changes in mean (unit noise) or in mean and variance, and the breakpoints ruptures finds on them: `Pelt` with the l2 cost (minimum lengths 1, 3, 5; penalties 2 log n, 10, 25), `Binseg` with the l2 cost, and `Pelt` with the normal cost (`add_small_diag = False`, minimum length 2, penalty 3 log n) | Computed by `../make_changepoint_fixtures.py` with ruptures 1.1.10 (BSD-2-Clause), numpy 2.5.4, Python 3.12.10; the series drawn by numpy's PCG64 (seed 20261101) | 2026-11-01 |
 | `spectral-reference.txt` | χ² quantiles; an uneven series with a gap, its Lomb–Scargle periodogram (standard normalisation, floating and fixed mean) and Baluev's false-alarm probabilities | Computed by `../make_spectral_fixtures.py` with scipy 1.18.1 (`scipy.stats.chi2.ppf`) and astropy 8.0.2 (`astropy.timeseries.LombScargle`, method 'cython'), numpy 2.3.5; the series drawn by numpy's PCG64 (seed 20261030) | 2026-10-31 |
 | `lutkepohl-e1.dat` | West German fixed investment, disposable income and consumption expenditures, quarterly, seasonally adjusted, billions of DM, 1960Q1–1982Q4 (source: Deutsche Bundesbank) | The data of H. Lütkepohl (2005), *New Introduction to Multiple Time Series Analysis*, Springer, Table E.1, as distributed with JMulTi: http://www.jmulti.de/download/datasets/e1.dat (the book's data page, http://www.jmulti.de/data_imtsa.html) | 2026-10-24 |
 

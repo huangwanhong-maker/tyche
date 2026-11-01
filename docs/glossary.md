@@ -37,6 +37,12 @@
 | AIC, BIC (regressions, GLMs) | −2ℓ + 2r and −2ℓ + r log n with r the coefficients estimated (statsmodels); R adds one parameter for σ² in Gaussian models |
 | GLM inference | t on n − r degrees of freedom for the gaussian family (φ estimated), normal otherwise; t on G − 1 with clusters |
 | Binomial response | the proportion of successes, with the numbers of trials as prior weights |
+| Elastic-net objective | ½ Σ vᵢ(yᵢ − β₀ − x̃ᵢᵀβ)² + λ Σ γⱼ[½(1 − α)βⱼ² + α\|βⱼ\|] with Σ v = 1 (glmnet's; scikit-learn's ElasticNet is λ = its alpha, α = its l1_ratio, unstandardised); the binomial loss −Σ vᵢ[yᵢηᵢ − log(1 + e^ηᵢ)] (scikit-learn's LogisticRegression: λ = 1/(C N)) |
+| Standardisation | columns centred at their weighted means (with an intercept) and divided by their weighted standard deviations, divisor Σ v = 1 (N); the penalty falls on the standardised coefficients, which are reported on X's scale |
+| Penalty factors | γⱼ ≥ 0, rescaled to sum to the number of columns (glmnet); γⱼ = 0 leaves a column unpenalised |
+| Cross-validation error | cvm the fold-weighted mean of the folds' mean losses; cvsd = √(Σ_k W_k(cv_k − cvm)²/ΣW_k/(K − 1)); λ_1se the largest λ with cvm ≤ cvm(λ_min) + cvsd(λ_min) |
+| NMF objectives | ‖V − WH‖²_F (no factor ½) and D(V‖WH) = Σ[V log(V/WH) − V + WH]; W's columns normalised to sum to 1 |
+| Rank stability | the mean silhouette of a cluster of replicate signatures under the cosine distance 1 − cos; the average over clusters and the least |
 
 ## 4. Time Series
 
@@ -55,3 +61,8 @@
 | Cross spectrum | S_xy = mean of conj(X) Y: its phase is arg Y − arg X, so y lagging x by τ has arg S_xy = −2πfτ |
 | Harmonic phase | a constituent A cos(2πf(t − t₀) − φ), φ = atan2(b, a) ∈ [0, 2π) for a cos + b sin: greatest φ/(2πf) after t₀ (the phase lag of tidal analysis) |
 | Red-noise background | the AR(1) with the series' lag-one autocorrelation and variance (divisor n) |
+| Segments and change points | segments half-open [τ_k, τ_{k+1}), 0-based; a change point τ is the first observation of a new segment |
+| Segment cost | −2 times the maximised log-likelihood of the segment, up to a sum over observations independent of the segmentation (the mean model with σ² fixed: Σ w(y − ȳ_w)²/σ²) |
+| Change-point penalty | β per change point on the same −2 log-likelihood scale: BIC (SIC) (d + 1) log n, AIC 2(d + 1), Hannan–Quinn 2(d + 1) log log n, MBIC (d + 2) log n plus d Σ log(ℓ_k/n), d the parameters of a segment |
+| Robust noise variance | (1.4826 MAD of (y_{i+1} − yᵢ)/√2)², or with precisions (y_{i+1} − yᵢ)/√(1/wᵢ + 1/w_{i+1}) |
+| CBS statistic and p-value | Z = (S̃_j − S̃_i)/√(k(m − k)/m) on the centred partial sums, t = Z/√((TSS − Z²)/(m − 2)); p = (1 + R)/(1 + B) |

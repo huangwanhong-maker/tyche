@@ -22,9 +22,19 @@ Numerically, the danger is cancellation. The textbook variance Σx² − n x̄²
 | `covariance(x, y)`, `correlation(x, y)`, `covariance_matrix(data)`, `correlation_matrix(data)` | data with one row per observation (`calx::linalg::Rectangular`); a `calx::linalg::Matrix` out |
 | `Summary`, `summarise(x)` | n, mean, variance, standard deviation, minimum, quartiles (type 7), median, maximum, skewness, excess kurtosis |
 
+`rank.hpp` ([decision 0008](../development/decisions/0008-the-learning-module.md)):
+
+| Function | Content |
+|---|---|
+| `ranks(x)` | mid-ranks (ties share the mean of their ranks; Kendall and Gibbons 1990, §3.1) |
+| `spearman(x, y)` | Spearman's ρ, Pearson's correlation of the mid-ranks |
+| `kendall_tau_b(x, y)` | Kendall's τ_b with ties, by Knight's O(n log n) count of discordant pairs (Knight 1966) |
+
 ## 3. Checks
 
 `check_tyche_descriptive` (33): the certified means and standard deviations of NIST's nine univariate reference datasets (PiDigits, Lottery, Lew, Mavro, Michelso, NumAcc1–4), to 15 digits where the data are exact in binary and to 8.3 on NumAcc4, whose decimal inputs carry an error of 10⁻⁹ against deviations of 0.1; Hyndman and Fan's nine quantiles of 1, …, 10 at ¼ (3, 3, 2, 2.5, 3, 2.75, 3.25, 35/12, 2.9375) and at 0 and 1; the moments of 1, …, 5 (g₂ = −1.3, G₂ = −1.2) and of a Bernoulli sample; frequency weights against replication, reliability weights, the weighted median; covariance and correlation matrices; a summary.
+
+`check_tyche_rank` (7): mid-ranks by hand; Spearman's ρ against 1 − 6Σd²/(n(n² − 1)) without ties and by hand with them; ρ and τ_b unchanged by increasing maps; τ_b by hand with ties and against the O(n²) count of pairs on 200 samples with ties.
 
 ## 4. Dependencies
 
