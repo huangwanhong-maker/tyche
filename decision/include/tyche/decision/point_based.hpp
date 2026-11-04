@@ -233,6 +233,7 @@ struct HsviResult {
   double lower_value = 0, upper_value = 0;  // at b₀
   int trials = 0, backups = 0;
   bool converged = false;
+  std::vector<std::pair<double, double>> trace;  // the bounds at b₀ before each trial
 };
 
 inline HsviResult hsvi(const Pomdp& P, const HsviOptions& opt = {}) {
@@ -293,6 +294,7 @@ inline HsviResult hsvi(const Pomdp& P, const HsviOptions& opt = {}) {
   std::size_t upper_pruned = 0;  // the number of upper points after the last pruning
   for (H.trials = 0; H.trials < opt.max_trials; H.trials++) {
     H.lower_value = H.lower.value(P.initial), H.upper_value = H.upper.value(P.initial);
+    H.trace.push_back({H.lower_value, H.upper_value});
     if (H.upper_value - H.lower_value <= opt.epsilon) { H.converged = true; break; }
     explore(P.initial, 0);
     if (H.trials % 50 == 49) H.lower.vectors = prune_dominated(std::move(H.lower.vectors));
