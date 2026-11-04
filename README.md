@@ -20,7 +20,7 @@ tyche is one of the foundation libraries of [The Science Infrastructures](https:
 |---|---|---|
 | [`probability`](probability/) | Distributions as objects: densities, distribution and survival functions, quantiles, moments; p-values; transformations, mixtures and copulas; limit theorems | draft: normal, Student, χ², F, gamma, beta, Poisson, binomial; p-values |
 | `information` | Entropy, mutual information, divergences; the information geometry of statistical models | planned |
-| `processes` | Markov chains, point processes (Poisson, renewal, Hawkes), Gaussian processes and random fields, diffusions, random graphs | planned |
+| [`processes`](processes/) | Markov chains, point processes (Poisson, renewal, Hawkes), Gaussian processes and random fields, diffusions, random graphs | draft: continuous-time Markov chains observed at discrete times, the panel likelihood by uniformisation, its maximum and Laplace's errors ([decision 0010](development/decisions/0010-markov-chains-observed-at-discrete-times.md)) |
 | [`descriptive`](descriptive/) | Summaries, moments, quantiles, weighted statistics, covariance and correlation; robust statistics, empirical distributions, kernel density estimation | draft: moments, the nine sample quantiles, weighted statistics, covariance and correlation matrices, summaries |
 | `estimation` | Likelihood, M-estimators, the method of moments; the bootstrap; confidence sets | planned |
 | [`testing`](testing/) | Parametric and permutation tests; multiple comparisons; power | draft: Bonferroni, Holm, Benjamini–Hochberg; Storey's π̂₀ (fixed λ, smoother, bootstrap) and q-values; permutation p-values; the beta approximation of permutation minima and the effective degrees of freedom (FastQTL) |
@@ -34,8 +34,9 @@ tyche is one of the foundation libraries of [The Science Infrastructures](https:
 | `causal` | Causal graphs, potential outcomes, identification and estimation of effects | planned |
 | `design` | Design of experiments; survey sampling and weighting | planned |
 | [`learning`](learning/) | Kernels, trees and ensembles, neural networks; validation | draft: feed-forward networks (dense, one-dimensional convolutions, rectifiers, pooling, dropout), backpropagation checked against differences, Adam and AdamW, minibatch training with early stopping, deterministic on any number of threads ([decision 0008](development/decisions/0008-the-learning-module.md)) |
+| [`decision`](decision/) | Decisions under uncertainty, sequential and partially observed | draft: finite POMDPs, their bounds (QMDP, the fast informed bound, blind policies), exact value iteration by incremental pruning, PBVI, Perseus and HSVI; POMCP online; mixed observability, components joined by a budget with the Lagrangian bound, constrained POMDPs by duality with finite-state controllers; Dec-POMDPs, exact best responses and JESP ([decision 0009](development/decisions/0009-decisions-under-partial-observation.md)) |
 
-The order of the modules is that of the infrastructure's [map of the mathematics](https://github.com/huangwanhong-maker/The-Science-Infrastructures/blob/main/docs/mathematics.md), §6: `probability` stands alone; `descriptive` uses it; `regression` uses `probability`; `time_series` uses `regression`, `descriptive` and `probability` (decision 0003); `multivariate` uses `regression` (decision 0006).
+The order of the modules is that of the infrastructure's [map of the mathematics](https://github.com/huangwanhong-maker/The-Science-Infrastructures/blob/main/docs/mathematics.md), §6: `probability` stands alone; `descriptive` uses it; `regression` uses `probability`; `time_series` uses `regression`, `descriptive` and `probability` (decision 0003); `multivariate` uses `regression` (decision 0006); `decision` stands on calx alone (decision 0009).
 
 ## 3. Principles
 

@@ -21,7 +21,8 @@ tyche implements the mathematics of chance (Mathematics Subject Classification 6
 - data assimilation and the uncertainty of models;
 - causal inference;
 - the design of experiments and surveys;
-- statistical learning.
+- statistical learning;
+- statistical decision theory: decisions under uncertainty, sequential and partially observed (POMDPs and their variants; decision 0009).
 
 It builds on three sibling libraries:
 

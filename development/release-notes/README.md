@@ -13,7 +13,7 @@ A running record, for readers, of what each commit made possible or better. It i
 
 | Date | Commits |
 |---|---|
-| [2026-11-04](2026-11-04.md) | The Hodrick–Prescott filter, exact to rounding |
+| [2026-11-04](2026-11-04.md) | Decisions under partial observation, and Markov chains seen now and then; the Hodrick–Prescott filter, exact to rounding |
 | [2026-11-01](2026-11-01.md) | Change points, penalties, factorisations, fine-mapping, testing and learning |
 | [2026-10-31](2026-10-31.md) | Spectral inference, harmonic analysis, and point patterns |
 | [2026-10-30](2026-10-30.md) | Contributors, their terms, and a steward |

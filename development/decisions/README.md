@@ -17,6 +17,8 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0006](0006-change-points-penalties-and-factorisations.md) | Change points, penalised regression, non-negative least squares and non-negative factorisation | Accepted, provisionally |
 | [0007](0007-sum-of-single-effects-variance-components-and-multiple-testing.md) | The sum of single effects, variance components, smoothing splines and multiple testing | Accepted, provisionally |
 | [0008](0008-the-learning-module.md) | The learning module: networks, backpropagation and Adam; rank correlation | Accepted, provisionally |
+| [0009](0009-decisions-under-partial-observation.md) | Decisions under partial observation: POMDPs and their variants | Accepted, provisionally |
+| [0010](0010-markov-chains-observed-at-discrete-times.md) | Markov chains observed at discrete times: the panel likelihood | Accepted, provisionally |
 
 ## 2. Template
 
