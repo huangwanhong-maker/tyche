@@ -211,11 +211,18 @@ int main() {
     }
     s.check("hp: the cycle sums to zero", c0, 1e-12);
     s.check("hp: and is orthogonal to time, Σ t c_t / Σ t |c_t|", c1 / scale, 1e-12);
+    // The trend solved exactly in rational arithmetic (make_hp_fixtures.py), and statsmodels'
+    // hpfilter, which solves the trend's system in floating point and keeps some 12 digits of it.
+    const double exact[4] = {6.1358706274446133, 6.3455032095326303, 7.0688847622829405, 7.9131141961886353};
     const double sm_tr[4] = {6.135870627446102, 6.345503209532945, 7.068884762282933, 7.913114196187519};
     const std::size_t at[4] = {0, 10, 45, 91};
-    double et = 0;
-    for (int i = 0; i < 4; i++) et = std::max(et, std::fabs(g.trend[at[i]] - sm_tr[i]));
-    s.check("hp: log income's trend at λ = 1600 against statsmodels' hpfilter", et, 1e-12);
+    double ex = 0, et = 0;
+    for (int i = 0; i < 4; i++) {
+      ex = std::max(ex, std::fabs(g.trend[at[i]] - exact[i]));
+      et = std::max(et, std::fabs(g.trend[at[i]] - sm_tr[i]));
+    }
+    s.check("hp: log income's trend at λ = 1600 against its exact rational solution", ex, 1e-13);
+    s.check("hp: ... and statsmodels' hpfilter, to its own accuracy (κ ε |y| ≈ 2.6e4 · 1.1e-16 · 8)", et, 2.5e-11);
     const auto z0 = hodrick_prescott(inc, 0);
     double ez = 0;
     for (std::size_t t = 0; t < inc.size(); t++) ez = std::max(ez, std::fabs(z0.trend[t] - inc[t]));
