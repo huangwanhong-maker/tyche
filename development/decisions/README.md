@@ -21,6 +21,7 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0010](0010-markov-chains-observed-at-discrete-times.md) | Markov chains observed at discrete times: the panel likelihood | Accepted, provisionally |
 | [0011](0011-hidden-markov-models.md) | Hidden Markov models with Gaussian emissions | Accepted, provisionally |
 | [0012](0012-exceedance.md) | Annual losses and exceedance curves | Accepted, provisionally |
+| [0013](0013-spatial-autocorrelation.md) | Spatial autocorrelation: Moran's I, global and local | Accepted, provisionally |
 
 ## 2. Template
 

@@ -32,6 +32,15 @@ A point pattern is a set of places where events or things are, possibly marked b
 | `colocation(x, y, mark, marks, stratum, radius, permutations, seed)` | `Colocation{marks, clq, null_mean, null_sd, p_upper, p_lower, count, permutations}`: Leslie and Kronenfeld's CLQ_{A→B} by nearest neighbours (ties shared) or within a radius, with a permutation null of the marks, within strata when given |
 | `clark_evans(x, y, x0, x1, y0, y1)` | `ClarkEvans{ratio, expected, observed, z, p}`: R = r̄ / E r̄ with Donnelly's edge correction for the rectangle |
 
+`autocorrelation.hpp` ([decision 0013](../development/decisions/0013-spatial-autocorrelation.md)):
+
+| Name | Content |
+|---|---|
+| `SpatialWeights`, `weights_from_rows(rows, standardise)` | sparse weights by rows, from each place's neighbours |
+| `k_nearest_weights(x, y[, z], k)` | each point's k nearest, each weighing 1/k: in the plane, or on the sphere from unit vectors |
+| `morans_i(x, W, permutations, seed)` | `Moran{I, expected, variance_normal, z_normal, p_normal, variance_randomisation, z_randomisation, p_randomisation, p_permutation}` (Cliff and Ord 1981) |
+| `local_morans_i(x, W, permutations, seed)` | `LocalMoran{I, quadrant, p}`: each place's I, its kind of association and a p-value by conditional permutation (Anselin 1995) |
+
 ## 3. Checks
 
 `check_tyche_spatial` (13): posterior means, variances, covariances, weights and the log likelihood against the batch formulas by one dense factorisation, and the same from whitened covariances; the same posterior and likelihood whatever the order of the observations; one observation in closed form; an observation without noise fixing the query; and calibration over 2000 fields drawn from the prior: held-out errors of mean square 1, ±1.96 sd covering 95 %, whitened innovations of mean square 1.
@@ -59,3 +68,5 @@ calx `random` (the permutations of `point_patterns`); conditioning needs nothing
 2. Observations removed as well as added (a sliding window), by the downdating of the Cholesky factor.
 3. Many observations: sparse and low-rank approximations, and the place of `assimilation`'s Kalman filters beside them.
 4. Point patterns in regions other than rectangles (edge corrections of Ripley's K), on networks (holdings along streets, where distance is along the street), and the local co-location quotient of each point.
+
+`check_tyche_spatial_autocorrelation` (44): Moran's I, its moments and tests, and each place's local I and quadrant against PySAL's esda on a rook lattice (binary and row-standardised) and on forty points' four nearest neighbours; neighbours as libpysal finds them, and across the antimeridian on the sphere; closed forms (a checkerboard's −1, two halves by counting the edges across, the local I summing to (n − 1) I); invariance; the permutation test's size and power; a hot spot found; refusals.
