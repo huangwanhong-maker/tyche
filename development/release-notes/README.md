@@ -13,6 +13,7 @@ A running record, for readers, of what each commit made possible or better. It i
 
 | Date | Commits |
 |---|---|
+| [2026-11-07](2026-11-07.md) | Annual losses and exceedance curves |
 | [2026-11-05](2026-11-05.md) | Hidden Markov models, and HSVI's interval traced |
 | [2026-11-04](2026-11-04.md) | Decisions under partial observation, and Markov chains seen now and then; the Hodrick–Prescott filter, exact to rounding |
 | [2026-11-01](2026-11-01.md) | Change points, penalties, factorisations, fine-mapping, testing and learning |
