@@ -13,6 +13,7 @@ A running record, for readers, of what each commit made possible or better. It i
 
 | Date | Commits |
 |---|---|
+| [2026-11-09](2026-11-09.md) | Panels, and the pieces of robust covariances |
 | [2026-11-07](2026-11-07.md) | Spatial autocorrelation; annual losses and exceedance curves |
 | [2026-11-05](2026-11-05.md) | Hidden Markov models, and HSVI's interval traced |
 | [2026-11-04](2026-11-04.md) | Decisions under partial observation, and Markov chains seen now and then; the Hodrick–Prescott filter, exact to rounding |

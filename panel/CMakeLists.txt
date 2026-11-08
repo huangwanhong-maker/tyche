@@ -1,0 +1,8 @@
+add_library(tyche_panel INTERFACE)
+add_library(tyche::panel ALIAS tyche_panel)
+target_include_directories(tyche_panel INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_features(tyche_panel INTERFACE cxx_std_20)
+target_link_libraries(tyche_panel INTERFACE tyche::regression tyche::probability calx::linalg)
+if(TYCHE_CHECKS)
+  tyche_add_check(check_tyche_panel SOURCES tests/check_panel.cpp LIBRARIES tyche::panel calx::random)
+endif()
