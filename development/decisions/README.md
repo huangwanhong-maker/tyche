@@ -23,6 +23,7 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0012](0012-exceedance.md) | Annual losses and exceedance curves | Accepted, provisionally |
 | [0013](0013-spatial-autocorrelation.md) | Spatial autocorrelation: Moran's I, global and local | Accepted, provisionally |
 | [0014](0014-panels-and-the-sandwich.md) | Panels and the sandwich, moved from nomos | Accepted, provisionally |
+| [0015](0015-spatial-regression.md) | Spatial regression: lag and error models, LM tests, impacts | Accepted, provisionally |
 
 ## 2. Template
 

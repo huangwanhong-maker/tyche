@@ -41,6 +41,14 @@ A point pattern is a set of places where events or things are, possibly marked b
 | `morans_i(x, W, permutations, seed)` | `Moran{I, expected, variance_normal, z_normal, p_normal, variance_randomisation, z_randomisation, p_randomisation, p_permutation}` (Cliff and Ord 1981) |
 | `local_morans_i(x, W, permutations, seed)` | `LocalMoran{I, quadrant, p}`: each place's I, its kind of association and a p-value by conditional permutation (Anselin 1995) |
 
+`regression.hpp` ([decision 0015](../development/decisions/0015-spatial-regression.md)):
+
+| Name | Content |
+|---|---|
+| `spatial_lag(X, y, W)`, `spatial_error(X, y, W)` | `SpatialRegression{beta, se, z, p, parameter, parameter_se, sigma2, log_likelihood, aic, residuals, fitted, covariance}`: ML with the Jacobian over W's eigenvalues and the inverse of the full information matrix (Anselin 1988) |
+| `lagrange_multipliers(X, y, W)` | `LagrangeTests{lm_error, lm_lag, robust_error, robust_lag, sarma}` with their p-values (Anselin, Bera, Florax and Yoon 1996) |
+| `lag_impacts(fit, W)` | `Impacts{direct, indirect, total}` per column (LeSage and Pace 2009) |
+
 ## 3. Checks
 
 `check_tyche_spatial` (13): posterior means, variances, covariances, weights and the log likelihood against the batch formulas by one dense factorisation, and the same from whitened covariances; the same posterior and likelihood whatever the order of the observations; one observation in closed form; an observation without noise fixing the query; and calibration over 2000 fields drawn from the prior: held-out errors of mean square 1, ±1.96 sd covering 95 %, whitened innovations of mean square 1.
