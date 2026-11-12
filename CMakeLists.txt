@@ -58,6 +58,7 @@ endfunction()
 # The modules in their order (decision 0003).
 add_subdirectory(probability)
 add_subdirectory(descriptive)
+add_subdirectory(classes)
 add_subdirectory(regression)
 add_subdirectory(panel)
 add_subdirectory(multivariate)

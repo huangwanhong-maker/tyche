@@ -66,3 +66,25 @@
 | Change-point penalty | β per change point on the same −2 log-likelihood scale: BIC (SIC) (d + 1) log n, AIC 2(d + 1), Hannan–Quinn 2(d + 1) log log n, MBIC (d + 2) log n plus d Σ log(ℓ_k/n), d the parameters of a segment |
 | Robust noise variance | (1.4826 MAD of (y_{i+1} − yᵢ)/√2)², or with precisions (y_{i+1} − yᵢ)/√(1/wᵢ + 1/w_{i+1}) |
 | CBS statistic and p-value | Z = (S̃_j − S̃_i)/√(k(m − k)/m) on the centred partial sums, t = Z/√((TSS − Z²)/(m − 2)); p = (1 + R)/(1 + B) |
+
+## 5. Classes and Communities
+
+| Quantity | Convention | Code |
+|---|---|---|
+| Abundance sample | X_i the count of class i, n = Σ X_i, f_k = #{i : X_i = k}, S_obs = Σ_{k≥1} f_k; zeros dropped | `classes::Abundances{counts, n, f}` |
+| Incidence sample | T units, Y_i the units holding class i, U = Σ Y_i, Q_k = #{i : Y_i = k} | `classes::Incidences{units, counts, total, Q}` |
+| Hill number | ^qD = (Σ p_i^q)^{1/(1−q)} over p_i > 0; q = 1 the limit exp H, q = ∞ the limit 1/max p; Rényi entropy H_q = ln ^qD in nats | `classes::hill`, `classes::renyi` |
+| Similarity matrix | Z_ij ∈ [0, 1], Z_ii = 1, the similarity of class j to class i; (Zp)_i the ordinariness | `classes::similarity_diversity` |
+| Partition weights | `equal`: w_j = 1/N, Jost's alpha; `size`: w_j = z_j+/z_++, alpha = ^qD(z/z_++)/N (Chao, Chiu and Jost); given unequal weights: Jost's alpha, q = 1 only | `classes::Weighting` |
+| Overlaps | C_qN Sørensen-type, U_qN Jaccard-type, both 1 − ln β/ln N at q = 1; dissimilarities 1 − C_qN, 1 − U_qN | `classes::Overlap` |
+| Chao1's factor and forms | A = (n − 1)/n (T for incidence: (T − 1)/T); classic: A f₁²/(2f₂) if f₂ > 0, else A f₁(f₁ − 1)/2 (iNEXT's); bias-corrected: A f₁(f₁ − 1)/(2(f₂ + 1)) for every f₂ (Chao 2005; scikit-bio's omits A) | `classes::Chao1Form` |
+| Chao1's variance | the delta method with multinomial covariances among Ŝ cells, Σ d_k² f_k + T − (D − T)²/Ŝ; without anything undetected, the Poisson variance of S_obs conditioned on n (U for incidence) | `classes::chao1`, `classes::chao2` |
+| Detection ratio | x = n f̂₀/(n f̂₀ + f₁) of the classic f̂₀: (n − 1)f₁/((n − 1)f₁ + 2f₂), or (n − 1)(f₁ − 1)/((n − 1)(f₁ − 1) + 2) when f₂ = 0, 0 when f₁ = 0; 1 − x is the A of Chao, Wang and Jost's entropy | `classes::detection_ratio` |
+| Sample coverage | Ĉ_n = 1 − (f₁/n) x (Chao and Jost 2012, eq. 4a when f₂ > 0); Turing's 1 − f₁/n separately | `classes::coverage`, `classes::turing_coverage` |
+| Rarefied Hill numbers | the Hill function of the subsamples' expected frequency counts f̂_k(m): exp of the mean entropy (q = 1), reciprocal of the mean concentration (q = 2), mean richness (q = 0); not the mean of the subsamples' Hill numbers | `classes::interpolated` |
+| Bootstrap intervals | B samples of n from the bootstrap assemblage; se the replicates' standard deviation, divisor B − 1; interval estimate ± z se, coverage's clipped to [0, 1]; replicate r on the stream identity (0x636c6173, r, 0) (incidence: (·, r, 1)) | `classes::curve`, `classes::richness_curve` |
+| Default sizes | ⌊knots/2⌋ sizes evenly from 1 to n − 1, n, ⌊knots/2⌋ from n + 1 to the endpoint (2n), rounded and unique | `classes::default_sizes` |
+| Dissimilarities | Bray–Curtis and Jaccard of two empty samples 0, of one empty sample and another 1; Hellinger and chord refused for an empty sample; Euclidean on any real values | `multivariate::Dissimilarity` |
+| Principal coordinates | eigenvalues of J(−½d²)J descending, those within 10⁻¹⁰ of the largest in magnitude set to 0; coordinates v_k √λ_k for λ_k > 0, each axis signed so that its largest entry is positive; corrections only when a negative eigenvalue exists | `multivariate::pcoa` |
+| Permutation p-values | (b + 1)/(B + 1) for B random relabellings; exact: the share of all relabellings (the observed among them); ties F* ≥ F(1 − 10⁻¹⁰), r* ≥ r − 10⁻¹²; Mantel one-sided for a positive association | `multivariate::permanova`, `multivariate::mantel` |
+| PERMDISP distances | z_i² = (1/n_g)Σ_j d_ij² − (1/(2n_g²))Σ_{j,k} d_jk² within the group; its absolute value where imaginary axes make it negative (vegan's betadisper); residuals z_i − z̄_g permuted | `multivariate::dispersion` |

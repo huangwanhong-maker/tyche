@@ -6,4 +6,5 @@ target_link_libraries(tyche_multivariate INTERFACE tyche::regression calx::linal
 if(TYCHE_CHECKS)
   tyche_add_check(check_tyche_nmf SOURCES tests/check_nmf.cpp LIBRARIES tyche::multivariate calx::random)
   tyche_add_check(check_tyche_binomial_mixture SOURCES tests/check_binomial_mixture.cpp LIBRARIES tyche::multivariate calx::random)
+  tyche_add_check(check_tyche_communities SOURCES tests/check_communities.cpp LIBRARIES tyche::multivariate calx::random)
 endif()

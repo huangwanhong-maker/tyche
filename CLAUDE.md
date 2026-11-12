@@ -63,8 +63,9 @@ tyche shares its governing principle with its sibling repositories: **modular, e
 tyche/
 ├── probability/    distributions, p-values
 ├── descriptive/    moments, quantiles, weighted statistics, covariance
+├── classes/        diversity of a law and its partition among units; richness, coverage, rarefaction and extrapolation from samples
 ├── regression/     least squares and robust covariances; generalised linear models; penalised regression; NNLS
-├── multivariate/   non-negative matrix factorisation and the stability of its rank
+├── multivariate/   non-negative matrix factorisation and the stability of its rank; dissimilarities, principal coordinates, PERMANOVA, Mantel
 ├── time_series/    autocorrelation; AR and ARIMA; unit roots and cointegration; filters; VAR; spectra; change points
 ├── spatial/        Gaussian conditioning (simple kriging), one observation at a time
 ├── docs/           glossary of conventions

@@ -25,6 +25,7 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0014](0014-panels-and-the-sandwich.md) | Panels and the sandwich, moved from nomos | Accepted, provisionally |
 | [0015](0015-spatial-regression.md) | Spatial regression: lag and error models, LM tests, impacts | Accepted, provisionally |
 | [0016](0016-information-through-a-record.md) | Information through a record: entropy, the chain rule of relative entropy as what a record shows and hides, the rate at which jump processes part | Accepted, provisionally |
+| [0017](0017-classes-and-communities.md) | Classes and communities: diversity and its partition, richness, coverage, rarefaction and extrapolation (`classes`); dissimilarities, principal coordinates, PERMANOVA, PERMDISP and the Mantel test (`multivariate`) | Accepted, provisionally |
 
 ## 2. Template
 

@@ -1,0 +1,86 @@
+# scikit-bio 0.7.4, numpy 2.5.4; generated 2026-11-12 by make_skbio_fixtures.py
+sample small 1,1,1,2,2,3,5,8
+hill small 0 8.0
+renyi small 0 2.0794415416798357
+hill small 0.5 6.929997570582331
+renyi small 0.5 1.9358594626364303
+hill small 1 6.04050612271564
+renyi small 1 1.7984878035877019
+hill small 2 4.853211009174312
+renyi small 2 1.5796405496291557
+hill small 3 4.220670045963798
+renyi small 3 1.4399938941083295
+hill small inf 2.875
+renyi small inf 1.0560526742493137
+ace small 11.144545454545456
+chao1_bias_corrected small 9.0
+chao1_uncorrected small 10.25
+goods_coverage small 0.8695652173913043
+sample zeros 0,4,1,0,7,1,2,2,12,1,3,0,1
+hill zeros 0 10.0
+renyi zeros 0 2.302585092994046
+hill zeros 0.5 8.173527380365819
+renyi zeros 0.5 2.100900563598397
+hill zeros 1 6.733732043282151
+renyi zeros 1 1.9071295283347827
+hill zeros 2 5.026086956521738
+renyi zeros 2 1.614641740309127
+hill zeros 3 4.244152714497677
+renyi zeros 3 1.445542203727734
+hill zeros inf 2.833333333333333
+renyi zeros inf 1.041453874828161
+ace zeros 14.56084656084656
+chao1_bias_corrected zeros 12.0
+chao1_uncorrected zeros 14.0
+goods_coverage zeros 0.8823529411764706
+sample rare 1,1,1,2,4,6,12,15
+hill rare 0 8.0
+renyi rare 0 2.0794415416798357
+hill rare 0.5 6.249179534666925
+renyi rare 0.5 1.8324501806777729
+hill rare 1 5.152771999567241
+renyi rare 1 1.639534822212965
+hill rare 2 4.121495327102804
+renyi rare 2 1.4162160409849398
+hill rare 3 3.706111358493871
+renyi rare 3 1.309983175575215
+hill rare inf 2.8
+renyi rare inf 1.0296194171811581
+ace rare 11.642857142857142
+chao1_bias_corrected rare 9.5
+chao1_uncorrected rare 12.5
+goods_coverage rare 0.9285714285714286
+sample even 5,5,5,5,5,5
+hill even 0 6.0
+renyi even 0 1.791759469228055
+hill even 0.5 6.000000000000001
+renyi even 0.5 1.7917594692280552
+hill even 1 6.000000000000002
+renyi even 1 1.7917594692280547
+hill even 2 5.999999999999999
+renyi even 2 1.791759469228055
+hill even 3 6.000000000000001
+renyi even 3 1.7917594692280552
+hill even inf 6.0
+renyi even inf 1.791759469228055
+ace even 6.0
+chao1_bias_corrected even 6.0
+chao1_uncorrected even 6.0
+goods_coverage even 1.0
+sample long 17,0,3,2,1,3,2,1,4,27,0,2,0,0,1,0,3,0,1,43,10,0,7,4,5,15,0,1,0,3,2,1,10,15,0,12,18,12,0,9,2,1,4,3,1,1,10,22,45,0,1,0,6,1,0,15,3,10,7,1,0,0,0,25,2,21,1,2,13,3,19,8,8,6,1,5,0,6,7,21,2,0,1,15,9,1,9,2,5,0,13,8,16,12,8,0,1,1,1,17,1,7,7,3,5,2,15,7,0,0,2,0,1,8,18,7,39,2,0,21
+hill long 0 95.0
+renyi long 0 4.553876891600541
+hill long 0.5 72.9149805985743
+renyi long 0.5 4.289294113082716
+hill long 1 58.86443250172155
+renyi long 1 4.075237045809632
+hill long 2 43.57798099592769
+renyi long 2 3.774551999758726
+hill long 3 35.622484875918744
+renyi long 3 3.5729770361223085
+hill long inf 17.355555555555554
+renyi long inf 2.853912660069366
+ace long 110.70697451613881
+chao1_bias_corrected long 111.15384615384616
+chao1_uncorrected long 113.375
+goods_coverage long 0.9731113956466069
