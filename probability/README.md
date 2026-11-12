@@ -23,9 +23,13 @@ A distribution is known through its distribution function F(x) = P(X ≤ x), its
 
 `p_values.hpp`: `upper_tail(d, x)`, `lower_tail(d, x)`, `two_sided(d, x)` (equal-tailed), `two_sided_normal(z)`, `two_sided_t(t, nu)`.
 
+`information.hpp` ([decision 0016](../development/decisions/0016-information-through-a-record.md)), on finite laws and kernels (`Kernel`, a row-stochastic matrix from outcomes to records): `entropy(p)`; `relative_entropy(p, q)` (physis's); `observed(p, K)`, the law of the record; `coarsening(cell)`; `garbled(K, G)`; `discrepancy(p, q, K)` → `Discrepancy{total, visible, hidden, record_p, record_q, hidden_at}`, the chain rule of relative entropy through a record (what the record shows of the difference between two laws, and what it hides); `kernel_discrepancy(p, K, K′)`; `jump_discrepancy_rate(k, k′, p)` and `path_discrepancy_rate(k, k′)`, the rate at which the paths of two jump processes part.
+
 ## 3. Checks
 
 `check_tyche_probability` (66): Φ at 1, 2, 3 (A&S Table 26.1) and in the far tails (Φ(−10), P(Z > 30)) to 10⁻¹⁴ relative; AS 241 against Wichura's published test values and z at 0.975 and 0.9999 (at the exact double inputs), the round trip Φ(Φ⁻¹(p)) over 10⁻¹² < p < 1; t, χ² and F critical values against Fisher and Yates's tables and 40-digit values (mpmath), fractional degrees of freedom; tails to 10⁻¹⁷ (χ²₁₀ above 100) with full relative accuracy; closed forms (Cauchy and t₂ quantiles, χ²₂ as an exponential, F(1, ν) = t², Beta(a, 1), beta and binomial sums, Poisson sums); discrete quantiles as least k; quantile round trips for t, F, beta and gamma; p-values; refusal of invalid parameters.
+
+`check_tyche_information` (22): the chain rule to rounding on 200 random laws and kernels, its two parts never negative, data processing, the limits of a record that shows all or nothing, the two-state chain's rate in closed form (0.7746), and the rate against matrix exponentials over a short time.
 
 ## 4. Dependencies
 

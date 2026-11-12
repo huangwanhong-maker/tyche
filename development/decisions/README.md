@@ -24,6 +24,7 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0013](0013-spatial-autocorrelation.md) | Spatial autocorrelation: Moran's I, global and local | Accepted, provisionally |
 | [0014](0014-panels-and-the-sandwich.md) | Panels and the sandwich, moved from nomos | Accepted, provisionally |
 | [0015](0015-spatial-regression.md) | Spatial regression: lag and error models, LM tests, impacts | Accepted, provisionally |
+| [0016](0016-information-through-a-record.md) | Information through a record: entropy, the chain rule of relative entropy as what a record shows and hides, the rate at which jump processes part | Accepted, provisionally |
 
 ## 2. Template
 
