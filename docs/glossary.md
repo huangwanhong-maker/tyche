@@ -88,3 +88,44 @@
 | Principal coordinates | eigenvalues of J(−½d²)J descending, those within 10⁻¹⁰ of the largest in magnitude set to 0; coordinates v_k √λ_k for λ_k > 0, each axis signed so that its largest entry is positive; corrections only when a negative eigenvalue exists | `multivariate::pcoa` |
 | Permutation p-values | (b + 1)/(B + 1) for B random relabellings; exact: the share of all relabellings (the observed among them); ties F* ≥ F(1 − 10⁻¹⁰), r* ≥ r − 10⁻¹²; Mantel one-sided for a positive association | `multivariate::permanova`, `multivariate::mantel` |
 | PERMDISP distances | z_i² = (1/n_g)Σ_j d_ij² − (1/(2n_g²))Σ_{j,k} d_jk² within the group; its absolute value where imaginary axes make it negative (vegan's betadisper); residuals z_i − z̄_g permuted | `multivariate::dispersion` |
+
+## 6. Compositions
+
+| Quantity | Convention | Code |
+|---|---|---|
+| Composition | positive parts, any units; only ratios carry information; every result closed to a stated `total` (default 1) | `compositions::closure` |
+| Logarithms and log-ratios | natural; clr(x)_i = ln(x_i/g(x)), g the geometric mean; alr(x)_i = ln(x_i/x_k), the denominator k the last part by default and left out of the coordinates | `compositions::clr`, `compositions::alr` |
+| Inner product | ⟨x, y⟩_a = Σ clr_i(x) clr_i(y) = (1/(2D)) Σ_ij ln(x_i/x_j) ln(y_i/y_j) | `compositions::inner` |
+| Contrast matrix | Ψ, (D − 1) × D, rows the clr's of the basis: ilr(x) = Ψ ln x, ilr⁻¹(z) = C(exp(Ψᵀz)), clr = Ψᵀ ilr | `compositions::Basis::contrast` |
+| Sequential binary partition | D − 1 rows of +1, −1, 0, each splitting a group made by the rows before it (the first row marks every part); written in that order | `compositions::basis` |
+| Orientation of a balance | √(rs/(r + s)) ln(g(x₊)/g(x₋)): positive when the parts marked +1 are larger in geometric mean; contrast entries √(s/(r(r + s))) on +, −√(r/(s(r + s))) on − | `compositions::balance` |
+| Default basis | pivot coordinates of the parts in order (Hron, Filzmoser and Thompson 2012): row j marks part j +1 and the parts after it −1; `pivot_basis(D, l)` puts part l first and the others in order | `compositions::pivot_basis` |
+| Centre | the closure of the parts' geometric means (not the mean of closed rows) | `compositions::centre` |
+| Variation matrix, total variance | t_ij = var(ln(x_i/x_j)) with divisor n − ddof, ddof = 1 by default (Pawlowsky-Glahn et al. write divisor n); totvar = (1/(2D)) Σ t_ij; metric standard deviation √(totvar/(D − 1)) | `compositions::variation_matrix`, `compositions::total_variance` |
+| Zero replacement | multiplicative: δ_j for a zero part, (1 − Σδ/c) x_j otherwise, c the total (default the composition's own sum); δ_j = 0.65 × detection limit by default, or one δ; essential zeros refused | `compositions::replace_zeros` |
+| Model's reference | `CompositionPredictor::centre`, the sample's centre closed to its mean total; reallocations are in the reference's units | `compositions::fit_predictor` |
+| One for one | Δ moved from `from` to `to`, the other parts held | `compositions::one_for_one` |
+| One for remaining | Δ added to one part and taken from the others in proportion to their sizes (Δ < 0 gives to them) | `compositions::one_for_remaining` |
+
+## 7. Relational Data
+
+| Quantity | Convention | Code |
+|---|---|---|
+| Network | nodes 0, …, n − 1; ties as (tail, head); undirected ties stored as (min, max); loops refused; a tie given twice is one tie, its weights summed; weights positive, 1 when none are given | `networks::network` |
+| Directed and undirected | directed: i → j and j → i are two ties, mutual when both exist; undirected: one tie, read as mutual by the censuses | `networks::Network::directed` |
+| Underlying graph | i — j when i → j or j → i, weight the sum; clustering, transitivity, cores, neighbourhoods and brokerage use it | `networks::underlying` |
+| Degrees | `out`, `in`; `total` = out + in when directed (a mutual pair twice), the degree when undirected; `neighbours` distinct in the underlying graph | `networks::degrees` |
+| Density | m/(n(n − 1)) directed, 2m/(n(n − 1)) undirected | `networks::density` |
+| Reciprocity | arc r = 2M/m; dyadic M/(M + A); Garlaschelli and Loffredo's ρ = (r − ā)/(1 − ā), ā the density | `networks::reciprocity` |
+| Triad classes | the order 003, 012, 102, 021D, 021U, 021C, 111D, 111U, 030T, 030C, 201, 120D, 120U, 120C, 210, 300 (Batagelj and Mrvar's, networkx's); D: the lone node sends (021D out-star, 120D) or the asymmetric tie runs into the mutual pair (111D: A↔B, C→B) | `networks::triad_names` |
+| Local clustering | 2t_i/(k_i(k_i − 1)) on the underlying graph, 0 when k_i < 2; the average over every node | `networks::local_clustering` |
+| Core numbers | on the underlying graph, by distinct neighbours (networkx counts in + out degree for directed graphs) | `networks::core_numbers` |
+| Mixing pairs | each directed tie once as (tail, head); each undirected tie twice; optionally weighted | `networks::mixing_matrix` |
+| Directed degree assortativity | the tail's out-degree against the head's in-degree by default (`DegreeEnds::out_in`) | `networks::degree_assortativity` |
+| E–I index | over ties, each once; a group's E_g and I_g over the ties incident to it; the reference the complete network on the same groups | `networks::ei_index` |
+| Inbreeding homophily | H_g from the ties g's members send (each undirected tie from both ends) | `networks::inbreeding_homophily` |
+| Burt's measures | z_ij = w_ij + w_ji over the underlying neighbours; NaN for an isolated node | `networks::brokerage` |
+| QAP cells | the off-diagonal cells, every ordered pair, or the pairs i < j with `symmetric`; the diagonal never | `networks::qap_correlation`, `networks::mrqap` |
+| Permutation and Monte Carlo p-values | (b + 1)/(B + 1) for B random relabellings or draws, the observed counted; exact: b/n! over all relabellings; two-sided \|stat*\| ≥ \|stat\|; ties within 10⁻¹² (r, CUG) or 10⁻¹⁰(1 + \|t\|) (t) | `networks::QapCorrelation`, `networks::CugTest` |
+| Streams | QAP correlation (seed, (0x6e657477, 1, 0)); MRQAP (·, (·, 2, 0)); CUG draw r (·, (·, 5, r)) | `networks::qap_correlation`, `networks::cug_test` |
+| Degree-preserving draws | each draw restarts from the observed network and attempts `swaps_per_tie` × m swaps; weights travel with the tails | `networks::degree_preserving` |

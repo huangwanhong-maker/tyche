@@ -26,6 +26,8 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0015](0015-spatial-regression.md) | Spatial regression: lag and error models, LM tests, impacts | Accepted, provisionally |
 | [0016](0016-information-through-a-record.md) | Information through a record: entropy, the chain rule of relative entropy as what a record shows and hides, the rate at which jump processes part | Accepted, provisionally |
 | [0017](0017-classes-and-communities.md) | Classes and communities: diversity and its partition, richness, coverage, rarefaction and extrapolation (`classes`); dissimilarities, principal coordinates, PERMANOVA, PERMDISP and the Mantel test (`multivariate`) | Accepted, provisionally |
+| [0018](0018-compositions.md) | Compositions: Aitchison's geometry of the simplex, balances and pivot coordinates, the centre and the variation matrix, the replacement of zeros, compositions as predictors (with reallocation) and as responses (`compositions`) | Accepted, provisionally |
+| [0019](0019-relational-data.md) | Relational data: density, reciprocity, the dyad and triad censuses, clustering, components and cores; assortativity, the E–I index and homophily; Burt's brokerage; QAP, MRQAP and conditional uniform graph tests (`networks`) | Accepted, provisionally |
 
 ## 2. Template
 

@@ -1,0 +1,11 @@
+add_library(tyche_networks INTERFACE)
+add_library(tyche::networks ALIAS tyche_networks)
+target_include_directories(tyche_networks INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_features(tyche_networks INTERFACE cxx_std_20)
+# Weak components are morphe's spanning forest; MRQAP is tyche's least squares.
+target_link_libraries(tyche_networks INTERFACE tyche::regression calx::linalg calx::random morphe::combinatorics)
+if(TYCHE_CHECKS)
+  tyche_add_check(check_tyche_network_descriptive SOURCES tests/check_network_descriptive.cpp LIBRARIES tyche::networks calx::random)
+  tyche_add_check(check_tyche_mixing SOURCES tests/check_mixing.cpp LIBRARIES tyche::networks calx::random)
+  tyche_add_check(check_tyche_qap SOURCES tests/check_qap.cpp LIBRARIES tyche::networks calx::random)
+endif()

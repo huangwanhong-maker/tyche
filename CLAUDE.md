@@ -64,6 +64,8 @@ tyche/
 ├── probability/    distributions, p-values
 ├── descriptive/    moments, quantiles, weighted statistics, covariance
 ├── classes/        diversity of a law and its partition among units; richness, coverage, rarefaction and extrapolation from samples
+├── compositions/   parts of a whole: Aitchison's geometry of the simplex, balances, the centre and variation, zeros, compositions in linear models
+├── networks/       relational data: censuses, clustering, components and cores; assortativity and homophily; brokerage; QAP, MRQAP, conditional uniform graphs
 ├── regression/     least squares and robust covariances; generalised linear models; penalised regression; NNLS
 ├── multivariate/   non-negative matrix factorisation and the stability of its rank; dissimilarities, principal coordinates, PERMANOVA, Mantel
 ├── time_series/    autocorrelation; AR and ARIMA; unit roots and cointegration; filters; VAR; spectra; change points
