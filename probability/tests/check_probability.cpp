@@ -14,6 +14,7 @@
 
 #include <calx/verification/check.hpp>
 
+#include <algorithm>
 #include <cmath>
 #include <cstdint>
 #include <numbers>
@@ -117,6 +118,38 @@ int main() {
     const Binomial b{50, 0.37};
     const std::int64_t k = b.quantile(0.25);
     s.require("binomial: the quartile is the least k with F(k) ≥ ¼", b.cdf(k) >= 0.25 && b.cdf(k - 1) < 0.25, std::to_string(k));
+  }
+
+  // ---- lifetimes: exponential, Weibull, lognormal (closed forms) ----
+  {
+    const Exponential e{0.5};
+    const Weibull w1{1.0, 2.0};
+    double worst = 0;
+    for (double x : {0.01, 0.5, 1.0, 3.0, 10.0, 60.0}) {
+      worst = std::max(worst, relative(w1.survival(x), e.survival(x)));
+      worst = std::max(worst, relative(w1.pdf(x), e.pdf(x)));
+      worst = std::max(worst, relative(w1.cdf(x), e.cdf(x)));
+    }
+    s.check("Weibull: shape 1 and scale 2 is the exponential of rate 1/2", worst, 4e-16);
+    s.check("exponential: S(60) = e^−30, relative, from the tail", relative(e.survival(60), std::exp(-30.0)), 1e-15);
+    s.check("exponential: F(10⁻¹²) = 5×10⁻¹³ − 1.25×10⁻²⁵, relative, by expm1", relative(e.cdf(1e-12), 5e-13 - 1.25e-25), 1e-15);
+    s.check("Weibull: mean Γ(3/2) = √π/2 at shape 2 and scale 1", relative(Weibull{2, 1}.mean(), std::sqrt(std::numbers::pi) / 2), 1e-15);
+    s.check("Weibull: variance 1 − π/4 at shape 2 and scale 1", relative(Weibull{2, 1}.variance(), 1 - std::numbers::pi / 4), 1e-14);
+    s.check("Weibull: with_mean(40, 3) has mean 40", relative(Weibull::with_mean(40, 3).mean(), 40), 1e-15);
+    s.check("Weibull: the median is λ (ln 2)^{1/k}", relative(Weibull{3, 50}.quantile(0.5), 50 * std::cbrt(std::log(2.0))), 1e-15);
+    const LogNormal ln{std::log(30.0), 0.4};
+    s.check("lognormal: F(e^μ) = 1/2", std::fabs(ln.cdf(30) - 0.5), 1e-16);
+    s.check("lognormal: S(x) = Φ̄((ln x − μ)/σ), to the rounding of ln 60 − ln 30", relative(ln.survival(60), Normal{0, 1}.survival(std::log(2.0) / 0.4)), 1e-14);
+    const LogNormal lm = LogNormal::with_moments(50, 20);
+    s.check("lognormal: with_moments(50, 20) has mean 50", relative(lm.mean(), 50), 1e-14);
+    s.check("lognormal: with_moments(50, 20) has standard deviation 20", relative(std::sqrt(lm.variance()), 20), 1e-14);
+    double trip = 0;
+    for (double p : {1e-9, 0.01, 0.3, 0.5, 0.9, 0.999999}) {
+      trip = std::max(trip, std::fabs(Weibull{2.5, 35}.cdf(Weibull{2.5, 35}.quantile(p)) - p) / p);
+      trip = std::max(trip, std::fabs(ln.cdf(ln.quantile(p)) - p) / p);
+      trip = std::max(trip, std::fabs(e.survival(e.upper_quantile(p)) - p) / p);
+    }
+    s.check("lifetimes: F(F⁻¹(p)) = p and S(S⁻¹(q)) = q, relative, from 10⁻⁹ to 1 − 10⁻⁶", trip, 1e-13);
   }
 
   // ---- round trips and p-values ----

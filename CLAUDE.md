@@ -70,6 +70,8 @@ tyche/
 ├── multivariate/   non-negative matrix factorisation and the stability of its rank; dissimilarities, principal coordinates, PERMANOVA, Mantel
 ├── time_series/    autocorrelation; AR and ARIMA; unit roots and cointegration; filters; VAR; spectra; change points
 ├── spatial/        Gaussian conditioning (simple kriging), one observation at a time
+├── bayes/          conjugate models; Markov chain Monte Carlo (adaptive Metropolis, HMC) and its diagnostics
+├── uncertainty/    designs; propagation of uncertainty; Morris's screening and Sobol' indices
 ├── docs/           glossary of conventions
 └── development/    decisions · ideas · release notes
 ```

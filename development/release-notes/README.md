@@ -13,7 +13,7 @@ A running record, for readers, of what each commit made possible or better. It i
 
 | Date | Commits |
 |---|---|
-| [2026-11-13](2026-11-13.md) | Compositions (Aitchison's geometry, balances, zeros, compositions in linear models) and relational data (censuses, clustering, homophily, brokerage, QAP, conditional uniform graphs); classes in a sample (diversity, richness, coverage, rarefaction and extrapolation), and communities of counts (dissimilarities, PCoA, PERMANOVA, Mantel) |
+| [2026-11-13](2026-11-13.md) | Lifetime laws (exponential, Weibull, lognormal); Bayesian computation (conjugate models, adaptive Metropolis, HMC, R̂ and effective sample sizes); uncertainty and sensitivity (Latin hypercubes, propagation, the delta method, Morris, Sobol'); compositions (Aitchison's geometry, balances, zeros, compositions in linear models) and relational data (censuses, clustering, homophily, brokerage, QAP, conditional uniform graphs); classes in a sample (diversity, richness, coverage, rarefaction and extrapolation), and communities of counts (dissimilarities, PCoA, PERMANOVA, Mantel) |
 | [2026-11-12](2026-11-12.md) | Information through a record |
 | [2026-11-09](2026-11-09.md) | Spatial regression; panels, and the pieces of robust covariances |
 | [2026-11-07](2026-11-07.md) | Spatial autocorrelation; annual losses and exceedance curves |

@@ -1,6 +1,6 @@
 // The standard distributions as objects: densities, distribution functions, survival functions
-// and quantiles of the normal, Student, χ², Fisher–Snedecor, gamma, beta, Poisson and binomial
-// distributions.
+// and quantiles of the normal, Student, χ², Fisher–Snedecor, gamma, beta, exponential, Weibull,
+// lognormal, Poisson and binomial distributions.
 //
 // Each distribution is a plain struct of its parameters with member functions:
 //   pdf(x) / pmf(k), log_pdf / log_pmf, cdf(x) = P(X ≤ x), survival(x) = P(X > x),
@@ -352,6 +352,118 @@ struct FisherF {
   double variance() const {
     if (!(d2 > 4)) return d2 > 2 ? infinity : std::numeric_limits<double>::quiet_NaN();
     return 2 * d2 * d2 * (d1 + d2 - 2) / (d1 * (d2 - 2) * (d2 - 2) * (d2 - 4));
+  }
+};
+
+// ---- lifetimes: the exponential, Weibull and lognormal distributions on (0, ∞) ----
+// Johnson, Kotz and Balakrishnan 1994, Continuous Univariate Distributions 1, ch. 19 (exponential),
+// ch. 21 (Weibull) and ch. 14 (lognormal). Every function is in closed form (the lognormal's through
+// the normal's erfc and AS 241), so their accuracy is that of exp, log, expm1, log1p and erfc.
+
+// The exponential distribution with rate λ > 0: S(x) = e^{−λx}.
+struct Exponential {
+  double rate = 1;
+
+  void validate() const { detail::require(rate > 0 && std::isfinite(rate), "Exponential needs a finite rate > 0"); }
+  double log_pdf(double x) const {
+    validate();
+    return x < 0 ? -infinity : std::log(rate) - rate * x;
+  }
+  double pdf(double x) const { return std::exp(log_pdf(x)); }
+  double cdf(double x) const {
+    validate();
+    return x <= 0 ? 0.0 : -std::expm1(-rate * x);
+  }
+  double survival(double x) const {
+    validate();
+    return x <= 0 ? 1.0 : std::exp(-rate * x);
+  }
+  double quantile(double p) const {
+    validate();
+    detail::require_probability(p);
+    return p == 1 ? infinity : -std::log1p(-p) / rate;
+  }
+  double upper_quantile(double q) const {
+    validate();
+    detail::require_probability(q);
+    return q == 0 ? infinity : -std::log(q) / rate;
+  }
+  double mean() const { return 1 / rate; }
+  double variance() const { return 1 / (rate * rate); }
+};
+
+// The Weibull distribution with shape k > 0 and scale λ > 0: S(x) = exp(−(x/λ)^k) (JKB 21.1);
+// mean λ Γ(1 + 1/k), variance λ² [Γ(1 + 2/k) − Γ(1 + 1/k)²]. Shape 1 is the exponential with rate 1/λ.
+struct Weibull {
+  double shape = 1, scale = 1;
+
+  void validate() const {
+    detail::require(shape > 0 && scale > 0 && std::isfinite(shape) && std::isfinite(scale), "Weibull needs finite shape > 0 and scale > 0");
+  }
+  double log_pdf(double x) const {
+    validate();
+    if (x < 0) return -infinity;
+    if (x == 0) return shape < 1 ? infinity : shape == 1 ? -std::log(scale) : -infinity;
+    const double z = x / scale;
+    return std::log(shape / scale) + (shape - 1) * std::log(z) - std::pow(z, shape);
+  }
+  double pdf(double x) const { return std::exp(log_pdf(x)); }
+  double cdf(double x) const {
+    validate();
+    return x <= 0 ? 0.0 : -std::expm1(-std::pow(x / scale, shape));
+  }
+  double survival(double x) const {
+    validate();
+    return x <= 0 ? 1.0 : std::exp(-std::pow(x / scale, shape));
+  }
+  double quantile(double p) const {
+    validate();
+    detail::require_probability(p);
+    return p == 1 ? infinity : scale * std::pow(-std::log1p(-p), 1 / shape);
+  }
+  double upper_quantile(double q) const {
+    validate();
+    detail::require_probability(q);
+    return q == 0 ? infinity : scale * std::pow(-std::log(q), 1 / shape);
+  }
+  double mean() const { return scale * std::tgamma(1 + 1 / shape); }
+  double variance() const {
+    const double g1 = std::tgamma(1 + 1 / shape);
+    return scale * scale * (std::tgamma(1 + 2 / shape) - g1 * g1);
+  }
+  // The Weibull law with a given mean and shape: λ = mean / Γ(1 + 1/k).
+  static Weibull with_mean(double mean, double shape) { return {shape, mean / std::tgamma(1 + 1 / shape)}; }
+};
+
+// The lognormal distribution: log X ~ N(μ, σ²) (JKB 14.1); mean e^{μ + σ²/2}, variance (e^{σ²} − 1) e^{2μ + σ²}.
+struct LogNormal {
+  double mu = 0, sigma = 1;
+
+  void validate() const { detail::require(std::isfinite(mu) && sigma > 0 && std::isfinite(sigma), "LogNormal needs a finite μ and σ > 0"); }
+  double log_pdf(double x) const {
+    validate();
+    if (x <= 0) return -infinity;
+    return Normal{mu, sigma}.log_pdf(std::log(x)) - std::log(x);
+  }
+  double pdf(double x) const { return std::exp(log_pdf(x)); }
+  double cdf(double x) const {
+    validate();
+    return x <= 0 ? 0.0 : Normal{mu, sigma}.cdf(std::log(x));
+  }
+  double survival(double x) const {
+    validate();
+    return x <= 0 ? 1.0 : Normal{mu, sigma}.survival(std::log(x));
+  }
+  double quantile(double p) const { return std::exp(Normal{mu, sigma}.quantile(p)); }
+  double upper_quantile(double q) const { return std::exp(Normal{mu, sigma}.upper_quantile(q)); }
+  double mean() const { return std::exp(mu + sigma * sigma / 2); }
+  double variance() const { return std::expm1(sigma * sigma) * std::exp(2 * mu + sigma * sigma); }
+  // The lognormal law with a given mean m and standard deviation s of X itself:
+  // σ² = log(1 + s²/m²), μ = log m − σ²/2 (JKB 14.8).
+  static LogNormal with_moments(double mean, double sd) {
+    detail::require(mean > 0 && sd > 0, "LogNormal::with_moments needs a mean > 0 and sd > 0");
+    const double s2 = std::log1p(sd * sd / (mean * mean));
+    return {std::log(mean) - s2 / 2, std::sqrt(s2)};
   }
 };
 

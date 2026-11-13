@@ -28,6 +28,9 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0017](0017-classes-and-communities.md) | Classes and communities: diversity and its partition, richness, coverage, rarefaction and extrapolation (`classes`); dissimilarities, principal coordinates, PERMANOVA, PERMDISP and the Mantel test (`multivariate`) | Accepted, provisionally |
 | [0018](0018-compositions.md) | Compositions: Aitchison's geometry of the simplex, balances and pivot coordinates, the centre and the variation matrix, the replacement of zeros, compositions as predictors (with reallocation) and as responses (`compositions`) | Accepted, provisionally |
 | [0019](0019-relational-data.md) | Relational data: density, reciprocity, the dyad and triad censuses, clustering, components and cores; assortativity, the E–I index and homophily; Burt's brokerage; QAP, MRQAP and conditional uniform graph tests (`networks`) | Accepted, provisionally |
+| [0020](0020-lifetime-laws.md) | Lifetime laws: the exponential, Weibull and lognormal distributions | Accepted, provisionally |
+| [0021](0021-bayesian-computation.md) | Bayesian computation: conjugate models, adaptive Metropolis and HMC, R̂ and the effective sample size (`bayes`) | Accepted, provisionally |
+| [0022](0022-uncertainty-and-sensitivity.md) | Uncertainty and sensitivity: designs, propagation and the delta method, Morris's screening, Sobol' indices (`uncertainty`) | Accepted, provisionally |
 
 ## 2. Template
 

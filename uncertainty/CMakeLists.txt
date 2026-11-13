@@ -1,0 +1,8 @@
+add_library(tyche_uncertainty INTERFACE)
+add_library(tyche::uncertainty ALIAS tyche_uncertainty)
+target_include_directories(tyche_uncertainty INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_features(tyche_uncertainty INTERFACE cxx_std_20)
+target_link_libraries(tyche_uncertainty INTERFACE calx::linalg calx::random)
+if(TYCHE_CHECKS)
+  tyche_add_check(check_tyche_uncertainty SOURCES tests/check_uncertainty.cpp LIBRARIES tyche::uncertainty tyche::probability)
+endif()
