@@ -1,0 +1,8 @@
+add_library(tyche_mixed INTERFACE)
+add_library(tyche::mixed ALIAS tyche_mixed)
+target_include_directories(tyche_mixed INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_features(tyche_mixed INTERFACE cxx_std_20)
+target_link_libraries(tyche_mixed INTERFACE calx::linalg calx::optimisation)
+if(TYCHE_CHECKS)
+  tyche_add_check(check_tyche_mixed SOURCES tests/check_mixed.cpp LIBRARIES tyche::mixed calx::random)
+endif()

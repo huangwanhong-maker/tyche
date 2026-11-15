@@ -129,3 +129,33 @@
 | Permutation and Monte Carlo p-values | (b + 1)/(B + 1) for B random relabellings or draws, the observed counted; exact: b/n! over all relabellings; two-sided \|stat*\| ≥ \|stat\|; ties within 10⁻¹² (r, CUG) or 10⁻¹⁰(1 + \|t\|) (t) | `networks::QapCorrelation`, `networks::CugTest` |
 | Streams | QAP correlation (seed, (0x6e657477, 1, 0)); MRQAP (·, (·, 2, 0)); CUG draw r (·, (·, 5, r)) | `networks::qap_correlation`, `networks::cug_test` |
 | Degree-preserving draws | each draw restarts from the observed network and attempts `swaps_per_tie` × m swaps; weights travel with the tails | `networks::degree_preserving` |
+
+## 8. Graphical Models
+
+| Quantity | Convention | Code |
+|---|---|---|
+| Factor table | row-major: the last variable of the scope varies fastest, index Σ x_i s_i with s_k = 1, s_i = s_{i+1} n_{i+1} (NumPy's C order) | `graphical::Factor` |
+| Conditional table | the factor over (parents…, X) in the order the parents are named, X last: one row per joint state of the parents, the last parent fastest, each row a law over X | `graphical::Node::table` |
+| Row sums | \|Σ row − 1\| ≤ tolerance, 10⁻⁹ by default; entries finite and non-negative; rows kept as given, not renormalised | `graphical::network` |
+| Product's scope | the first factor's variables, then the second's not in the first, in their order | `graphical::product` |
+| Evidence | hard (`observed`: a state) and virtual (`likelihood`: λ ≥ 0 per state); both may be given for one variable; P(e) includes Π λ_v(x_v), so it scales with λ | `graphical::Evidence` |
+| Elimination order | min-fill by default; ties to the fewer neighbours, then the lower index; min-degree ties to the lower index; induced width = the most neighbours a variable has when it is eliminated | `graphical::plan` |
+| Pruning | only the variables queried or observed and their ancestors enter an elimination (barren variables sum to one); the most probable explanation keeps all | `graphical::joint` |
+| Likelihood ratio | P(e \| X ∈ S) / P(e \| X ∉ S); +∞ when only X ∉ S is excluded, 0 when only X ∈ S is; refused when P(X ∈ S) ∈ {0, 1} or both are excluded; `log_ratio` natural | `graphical::likelihood_ratio` |
+| Most probable explanation | the full assignment maximising P(x, e) (with the λ weights); ties to the lower state, chosen from the last variable eliminated back to the first | `graphical::most_probable_explanation` |
+| Belief propagation | messages normalised to sum to one; the round's change the largest absolute change of a factor-to-variable message; converged when it is at most the tolerance (10⁻¹³); `exact` only when the factor graph (after hard evidence reduces it) is a forest and the messages converged | `graphical::propagate` |
+| EM objective | ℓ(θ) = Σ_r log P(e_r), plus Σ a_ijk log θ_ijk with pseudo-counts (the log-posterior under Dirichlet(a + 1) rows, up to its constant), recorded at the start and after each M-step; stop when the gain is below tolerance × (1 + \|objective\|); a row with no count and no pseudo-count keeps its values | `graphical::em` |
+| Streams | none fixed: `sample` draws from the stream it is given | `graphical::sample` |
+
+## 9. Belief Functions
+
+| Quantity | Convention | Code |
+|---|---|---|
+| Subset | a bit mask: ω_i ∈ A when bit i is set; ∅ = 0, Ω = 2ⁿ − 1; frames of 1 to 30 elements, tables of all subsets for at most 20 | `beliefs::Set` |
+| Mass function | focal sets in increasing order of their masks, each once, masses positive; a set given twice summed; masses kept as given (not renormalised), summing to one within 10⁻⁹ | `beliefs::Mass`, `beliefs::mass` |
+| Empty set | m(∅) = 0 unless `allow_empty` (the transferable belief model); Bel(A) sums over non-empty B ⊆ A, so Bel(A) + Pl(Ω ∖ A) = 1 − m(∅) | `beliefs::belief` |
+| Conflict | K = Σ_{B ∩ C = ∅} m₁(B) m₂(C), always reported; Dempster normalises by the sum of the masses that meet (equal to 1 − K); Yager gives K to Ω; the conjunctive rule keeps it as m(∅) | `beliefs::Combined` |
+| Total conflict | K = 1 decided structurally (no focal set of one meets one of the other), not by a threshold, and refused | `beliefs::dempster` |
+| Discounting | α is the reliability (Shafer's discount rate is 1 − α) | `beliefs::discount` |
+| Möbius back | values within 4n ε × the largest value of zero set to zero; masses down to the tolerance below zero taken as zero, further below refused | `beliefs::from_vector` |
+| Credal operations | defined for normal mass functions only; m(∅) > 0 refused | `beliefs::lower_expectation` |

@@ -1,0 +1,8 @@
+add_library(tyche_latent INTERFACE)
+add_library(tyche::latent ALIAS tyche_latent)
+target_include_directories(tyche_latent INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_features(tyche_latent INTERFACE cxx_std_20)
+target_link_libraries(tyche_latent INTERFACE calx::linalg calx::random)
+if(TYCHE_CHECKS)
+  tyche_add_check(check_tyche_latent SOURCES tests/check_latent.cpp LIBRARIES tyche::latent calx::random)
+endif()

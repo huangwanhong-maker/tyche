@@ -1,6 +1,6 @@
 # decision: Decisions Under Partial Observation
 
-*Status: draft (2026-11-04).* Finite POMDPs and their bounds, exact and point-based solvers, online planning by Monte Carlo tree search, mixed observability, components joined by a budget, constraints on expected costs, and decentralised POMDPs ([decision 0009](../development/decisions/0009-decisions-under-partial-observation.md)). SARSOP, DESPOT, factored solvers with vectors by visible state, Bayes-adaptive POMDPs and stochastic games are planned.
+*Status: draft (2026-11-04; the single decision 2026-11-15).* Decisions in one step: a table of acts against states chosen among under risk, ignorance and ambiguity, decision trees folded back, the value of information, and lotteries ([decision 0024](../development/decisions/0024-decisions-in-one-step-and-the-value-of-information.md)). Finite POMDPs and their bounds, exact and point-based solvers, online planning by Monte Carlo tree search, mixed observability, components joined by a budget, constraints on expected costs, and decentralised POMDPs ([decision 0009](../development/decisions/0009-decisions-under-partial-observation.md)). SARSOP, DESPOT, factored solvers with vectors by visible state, Bayes-adaptive POMDPs and stochastic games are planned.
 
 ## 1. Concepts
 
@@ -19,6 +19,10 @@ Nothing names an object in nature. A state, an action and an observation are num
 
 | Header | Content |
 |---|---|
+| `choice.hpp` | `Table` (acts × states), `Choice` (the criterion, each act's value, the acts chosen); `expected_utility`; `dominates`, `admissible`; under ignorance `maximin`, `maximax`, `hurwicz`, `laplace`, `regret`, `minimax_regret`; `Credal` (the convex hull of finitely many probabilities), `credal_from_bounds`, `lower_expectation`, `upper_expectation`; `gamma_maximin` (Gilboa and Schmeidler 1989), `gamma_maximax`, `alpha_maxmin`; `interval_undominated`, `maximal` (Walley 1991), `e_admissible` (Levi 1974, by a linear programme) |
+| `trees.hpp` | `Node`, `Tree`; `fold_back` (Raiffa 1968); `strategies`, `evaluate`; `informed_tree`, deciding on a table after a test |
+| `value.hpp` | `evpi`; `Test`, `Preposterior`, `evsi` (Raiffa and Schlaifer 1961); `normal_loss`, `evpi_normal`, `evsi_normal` |
+| `risk.hpp` | `Lottery`; `first_order_dominates`, `second_order_dominates` (Hadar and Russell 1969); `certainty_equivalent_cara`, `certainty_equivalent_crra` |
 | `pomdp.hpp` | `Pomdp` (dense T, Z, R, γ, b₀) and `validate`; `predict`, `observation_law`, `update` (Bayes's rule), `expected_reward`; the MDP beneath: `solve_mdp` (ε-optimal, Puterman 1994, Theorem 6.3.1), `solve_mdp_horizon` |
 | `alpha.hpp` | `AlphaVector`, `ValueFunction`; the bounds `qmdp`, `fast_informed_bound` (above V*) and `blind_lower_bound` (below; Hauskrecht 2000); `prune` (Lark's filter, its witness programmes on calx's simplex, posed in units of the vectors' differences); `prune_dominated`; `exact_backup` by incremental pruning (Cassandra, Littman and Zhang 1997), `exact_value_iteration`; `point_backup` |
 | `point_based.hpp` | `lookahead` (the exact search of the belief tree, to a depth, on any leaf value); `pbvi` (Pineau, Gordon and Thrun 2003); `perseus` (Spaan and Vlassis 2005), stopping on the Bellman residual on its beliefs; `UpperBound` (the sawtooth, pruned of redundant points) and `hsvi` (Smith and Simmons 2004, 2005), its bounds at the start recorded before each trial (`HsviResult::trace`) |
@@ -30,6 +34,8 @@ Nothing names an object in nature. A state, an action and an observation are num
 
 ## 3. Checks
 
+- **`check_tyche_choice` (24).** Five criteria under ignorance choosing five different acts on one table, worked by hand; regret and dominance; Ellsberg's urn under maxmin expected utility, and no single probability making both choices; credal sets from bounds; Troffaes's inclusions (Γ-maximin ⊆ maximal; Γ-maximax ⊆ E-admissible ⊆ maximal ⊆ interval-undominated) on 400 random problems, E-admissibility held to 24,000 sampled probabilities; one probability reducing every rule to expected utility.
+- **`check_tyche_trees` (24).** A wildcatter's tree folded back by hand and against its 12 strategies; random trees against enumeration; EVPI and EVSI by hand; Good's theorem and 0 ≤ EVSI ≤ EVPI on 300 random problems, perfect and useless tests, EVSI by folding back the tree of deciding after the test; the normal EVPI against quadrature and EVSI's limits; first- and second-order dominance against the step and ramp utilities that characterise them, on 3000 pairs; certainty equivalents, Arrow and Pratt's μ − aσ²/2.
 - **`check_tyche_pomdp` (26).**
   - Bayes's rule on the tiger in closed form, and the refusals.
   - Exact value iteration equals the lookahead on the belief tree at 300 beliefs, every horizon to 5: the tiger, discounted and not, and two random POMDPs.
@@ -49,7 +55,7 @@ Nothing names an object in nature. A state, an action and an observation are num
 
 ## 4. Dependencies
 
-calx `linalg`, `optimisation` (the simplex, for pruning and the checks' programmes), `random` (streams and categorical draws).
+tyche `probability` (the normal law); calx `linalg`, `optimisation` (the simplex, for pruning, E-admissibility and the checks' programmes), `random` (streams and categorical draws).
 
 ## 5. References
 
@@ -58,6 +64,9 @@ calx `linalg`, `optimisation` (the simplex, for pruning and the checks' programm
 - Kaelbling, L. P., Littman, M. L. and Cassandra, A. R. (1998), Planning and acting in partially observable stochastic domains, *Artif. Intell.* 101, 99–134.
 - Madani, O., Hanks, S. and Condon, A. (2003), On the undecidability of probabilistic planning and related stochastic optimization problems, *Artif. Intell.* 147, 5–34.
 - Puterman, M. L. (1994), *Markov Decision Processes*, Wiley.
+- von Neumann, J. and Morgenstern, O. (1944), *Theory of Games and Economic Behavior*; Savage, L. J. (1954), *The Foundations of Statistics*; Milnor, J. (1954), Games against nature, in Thrall, Coombs and Davis, eds., *Decision Processes*; Hurwicz, L. (1951), Optimality criteria for decision making under ignorance, Cowles Commission Discussion Paper 370.
+- Ellsberg, D. (1961), Risk, ambiguity, and the Savage axioms, *Quarterly Journal of Economics* 75; Gilboa, I. and Schmeidler, D. (1989), *Journal of Mathematical Economics* 18; Levi, I. (1974), *Journal of Philosophy* 71; Walley, P. (1991), *Statistical Reasoning with Imprecise Probabilities*; Troffaes, M. C. M. (2007), *International Journal of Approximate Reasoning* 45.
+- Raiffa, H. (1968), *Decision Analysis*; Raiffa, H. and Schlaifer, R. (1961), *Applied Statistical Decision Theory*; Good, I. J. (1967), *British Journal for the Philosophy of Science* 17; Hadar, J. and Russell, W. R. (1969), *American Economic Review* 59; Pratt, J. W. (1964), *Econometrica* 32.
 - Cassandra, A. R., Littman, M. L. and Zhang, N. L. (1997), Incremental pruning, *UAI-97*, 54–61.
 - Hauskrecht, M. (2000), Value-function approximations for partially observable Markov decision processes, *JAIR* 13, 33–94.
 - Pineau, J., Gordon, G. and Thrun, S. (2003), Point-based value iteration, *IJCAI-03*, 1025–1031.
