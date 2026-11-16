@@ -4,7 +4,7 @@ target_include_directories(tyche_decision INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/
 target_compile_features(tyche_decision INTERFACE cxx_std_20)
 target_link_libraries(tyche_decision INTERFACE tyche::probability calx::linalg calx::optimisation calx::random)
 if(TYCHE_CHECKS)
-  foreach(check pomdp online multiagent structured constrained choice trees)
+  foreach(check pomdp online multiagent structured constrained choice trees budget)
     tyche_add_check(check_tyche_${check} SOURCES tests/check_${check}.cpp LIBRARIES tyche::decision)
     if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
       target_compile_options(check_tyche_${check} PRIVATE -O2)

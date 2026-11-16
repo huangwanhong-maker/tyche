@@ -34,6 +34,7 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0023](0023-graphical-models-and-belief-functions.md) | Graphical models and belief functions: Bayesian networks with exact elimination, likelihood ratios, the most probable explanation, belief propagation and EM (`graphical`); Dempster–Shafer mass functions, their transforms and rules of combination, discounting, the pignistic law and Choquet expectations (`beliefs`) | Accepted, provisionally |
 | [0024](0024-decisions-in-one-step-and-the-value-of-information.md) | Decisions in one step (expected utility; maximin, maximax, Hurwicz, Laplace, minimax regret; credal sets, Γ-maximin, α-maxmin, interval dominance, maximality, E-admissibility), decision trees folded back, the value of perfect and sample information, stochastic dominance and certainty equivalents (`decision`) | Accepted, provisionally |
 | [0025](0025-mixed-and-latent-variable-models.md) | Linear mixed models by profiled REML and ML; factor analysis by ML with varimax; latent class analysis | Accepted, provisionally |
+| [0026](0026-information-bought-under-a-budget-and-intervals-for-a-proportion.md) | Information bought under a budget: the tests worth running before separate decisions, as a knapsack of their EVSIs; Wilson's and Clopper and Pearson's intervals for a proportion | Accepted, provisionally |
 
 ## 2. Template
 

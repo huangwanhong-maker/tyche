@@ -6,4 +6,5 @@ target_link_libraries(tyche_probability INTERFACE calx::special_functions calx::
 if(TYCHE_CHECKS)
   tyche_add_check(check_tyche_probability SOURCES tests/check_probability.cpp LIBRARIES tyche::probability)
   tyche_add_check(check_tyche_information SOURCES tests/check_information.cpp LIBRARIES tyche::probability calx::random)
+  tyche_add_check(check_tyche_proportions SOURCES tests/check_proportions.cpp LIBRARIES tyche::probability)
 endif()

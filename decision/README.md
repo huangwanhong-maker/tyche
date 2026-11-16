@@ -22,6 +22,7 @@ Nothing names an object in nature. A state, an action and an observation are num
 | `choice.hpp` | `Table` (acts × states), `Choice` (the criterion, each act's value, the acts chosen); `expected_utility`; `dominates`, `admissible`; under ignorance `maximin`, `maximax`, `hurwicz`, `laplace`, `regret`, `minimax_regret`; `Credal` (the convex hull of finitely many probabilities), `credal_from_bounds`, `lower_expectation`, `upper_expectation`; `gamma_maximin` (Gilboa and Schmeidler 1989), `gamma_maximax`, `alpha_maxmin`; `interval_undominated`, `maximal` (Walley 1991), `e_admissible` (Levi 1974, by a linear programme) |
 | `trees.hpp` | `Node`, `Tree`; `fold_back` (Raiffa 1968); `strategies`, `evaluate`; `informed_tree`, deciding on a table after a test |
 | `value.hpp` | `evpi`; `Test`, `Preposterior`, `evsi` (Raiffa and Schlaifer 1961); `normal_loss`, `evpi_normal`, `evsi_normal` |
+| `budget.hpp` | `Informable` (a decision, its prior, a test and its cost); `buy(problems, budget, charged)` → `Purchase`: the tests to run before separate decisions within a budget, the sum of their EVSIs being what running them is worth, chosen as a knapsack on calx's ([decision 0026](../development/decisions/0026-information-bought-under-a-budget-and-intervals-for-a-proportion.md)) |
 | `risk.hpp` | `Lottery`; `first_order_dominates`, `second_order_dominates` (Hadar and Russell 1969); `certainty_equivalent_cara`, `certainty_equivalent_crra` |
 | `pomdp.hpp` | `Pomdp` (dense T, Z, R, γ, b₀) and `validate`; `predict`, `observation_law`, `update` (Bayes's rule), `expected_reward`; the MDP beneath: `solve_mdp` (ε-optimal, Puterman 1994, Theorem 6.3.1), `solve_mdp_horizon` |
 | `alpha.hpp` | `AlphaVector`, `ValueFunction`; the bounds `qmdp`, `fast_informed_bound` (above V*) and `blind_lower_bound` (below; Hauskrecht 2000); `prune` (Lark's filter, its witness programmes on calx's simplex, posed in units of the vectors' differences); `prune_dominated`; `exact_backup` by incremental pruning (Cassandra, Littman and Zhang 1997), `exact_value_iteration`; `point_backup` |
@@ -52,6 +53,8 @@ Nothing names an object in nature. A state, an action and an observation are num
 - **`check_tyche_constrained` (9).**
   - The tiger with a cost for listening, over three steps: backups at every reachable belief give the best of all 2187 trees for every λ; the dual's mixture attains the linear programme's optimum over mixtures of trees, with strong duality.
   - At discount 0.95: the controllers' exact values agree with their simulation, and the mixture lies below the dual bound.
+
+- `check_tyche_budget` (15): the worth of two tests on separate decisions equal to the sum of their EVSIs, held by forming the product problem outright (200 random pairs); three sites by hand; the set bought against every subset (100 problems up to ten tests, costs charged in half); equal costs; refusals.
 
 ## 4. Dependencies
 
