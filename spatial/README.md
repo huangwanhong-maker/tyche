@@ -1,6 +1,6 @@
 # spatial: Random Fields and Their Statistics
 
-*Status: draft (2026-10-29): Gaussian conditioning, extended one observation at a time ([decision 0004](../development/decisions/0004-gaussian-conditioning.md)); (2026-10-31) the co-location quotient of marked points and Clark and Evans's ratio ([decision 0005](../development/decisions/0005-spectral-inference-harmonics-and-point-patterns.md)).* Variograms and their fitting, kriging with an unknown mean (ordinary and universal), Ripley's K and pair correlations, areal models and statistics on the sphere are planned.
+*Status: draft (2026-10-29): Gaussian conditioning, extended one observation at a time ([decision 0004](../development/decisions/0004-gaussian-conditioning.md)); (2026-10-31) the co-location quotient of marked points and Clark and Evans's ratio ([decision 0005](../development/decisions/0005-spectral-inference-harmonics-and-point-patterns.md)).* (2026-11-18) change of support between partitions and estimates withheld outside their area of applicability ([decision 0028](../development/decisions/0028-change-of-support-and-estimates-withheld.md)). Variograms and their fitting, kriging with an unknown mean (ordinary and universal), Ripley's K and pair correlations, areal models and statistics on the sphere are planned.
 
 ## 1. Concepts
 
@@ -49,11 +49,32 @@ A point pattern is a set of places where events or things are, possibly marked b
 | `lagrange_multipliers(X, y, W)` | `LagrangeTests{lm_error, lm_lag, robust_error, robust_lag, sarma}` with their p-values (Anselin, Bera, Florax and Yoon 1996) |
 | `lag_impacts(fit, W)` | `Impacts{direct, indirect, total}` per column (LeSage and Pace 2009) |
 
+`support.hpp` ([decision 0028](../development/decisions/0028-change-of-support-and-estimates-withheld.md)):
+
+| Name | Content |
+|---|---|
+| `Part{source, target, measure, ancillary}`, `Carried{values, given, fell_back, method}` | the intersection of a source zone and a target zone; what was carried, and what each source gave |
+| `areal_extensive(targets, parts, y, source_measure)` | y_t = Σ_s y_s m_st / M_s: an amount in proportion to measure, a source partly outside the targets giving only its share inside |
+| `areal_intensive(targets, parts, y)` | a density or rate as the measure-weighted mean of the sources a target meets |
+| `dasymetric(targets, parts, y)` | an amount in proportion to the ancillary amount of each part; a source with none carried by measure, and counted |
+| `class_densities(class_measure, y)` | `ClassDensities{density, fitted, explained}`: the densities of ancillary classes from the sources' totals by NNLS |
+| `pycnophylactic(grid, totals)` | `Surface{values, sweeps, change, converged}`: Tobler's smooth surface whose zone sums are the totals exactly |
+
+`prediction.hpp` ([decision 0028](../development/decisions/0028-change-of-support-and-estimates-withheld.md)):
+
+| Name | Content |
+|---|---|
+| `predict(X, y, block, Xt, {ridge, level, min_skill, max_relative_halfwidth, log})` | `Prediction{estimate, lower, upper, dissimilarity, applicable, withheld, reason, cv_predicted, training_dissimilarity, coefficients, importance, threshold, halfwidth, cv_rmse, cv_skill, blocks, method}`: a linear estimator judged by blocked cross-validation, conformal intervals from its errors, Meyer and Pebesma's dissimilarity index and area of applicability, and each estimate withheld with its reason |
+
 ## 3. Checks
 
 `check_tyche_spatial` (13): posterior means, variances, covariances, weights and the log likelihood against the batch formulas by one dense factorisation, and the same from whitened covariances; the same posterior and likelihood whatever the order of the observations; one observation in closed form; an observation without noise fixing the query; and calibration over 2000 fields drawn from the prior: held-out errors of mean square 1, ±1.96 sd covering 95 %, whitened innovations of mean square 1.
 
 `check_tyche_point_patterns` (24): the co-location quotient by hand (six points, a tie shared; within a radius; translated); Σ_B CLQ_{A→B} N'_B/(N − 1) = 1; under random labelling the null's mean 1 and the upper p-value's size 0.05 (400 labellings); attraction found; a pattern whose halves differ in composition significant against random labelling and not against the stratified null; Clark and Evans on a square lattice (R = 2 uncorrected, Donnelly's in closed form) and a hexagonal one (2.1491), on Poisson points (mean R = 1, size 0.05 over 1000 patterns) and on a Thomas process.
+
+`check_tyche_support` (19): areal weighting against values by hand, totals kept, a source half outside giving half; the intensive mean; dasymetric carriage following the ancillary amounts with totals kept and a source without one falling back to measure; three classes' densities recovered exactly and the truth reproduced where areal weighting does not; pycnophylactic totals kept to rounding, a flat surface for one zone, a gradient across the zones recovered with a third of a uniform density's error, symmetry under reflection.
+
+`check_tyche_prediction` (14): an exact linear truth recovered with skill one and a nil interval; a repeated training unit with index zero, a target far outside withheld for being outside the area of applicability; conformal coverage near 90% averaged over five samples, its half-width near 1.645 times the held-out error; covariates that explain nothing withheld everywhere under a declared floor of skill; an exponential truth through its logarithm; an estimate wider than the use allows withheld; a single block refused.
 
 ## 4. Dependencies
 
