@@ -37,6 +37,7 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0026](0026-information-bought-under-a-budget-and-intervals-for-a-proportion.md) | Information bought under a budget: the tests worth running before separate decisions, as a knapsack of their EVSIs; Wilson's and Clopper and Pearson's intervals for a proportion | Accepted, provisionally |
 | [0027](0027-comparing-groups-and-testing-what-a-search-finds.md) | Comparing groups, and testing what a search finds | Accepted, provisionally |
 | [0028](0028-change-of-support-and-estimates-withheld.md) | Change of support, and estimates withheld where they cannot be trusted | Accepted, provisionally |
+| [0029](0029-layers-of-a-loss-and-basis-risk.md) | Layers of a loss (per year and per event, from a record or a published curve) and the basis risk of a payout on an index | Accepted, provisionally |
 
 ## 2. Template
 

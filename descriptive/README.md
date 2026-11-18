@@ -30,11 +30,26 @@ Numerically, the danger is cancellation. The textbook variance Σx² − n x̄²
 | `spearman(x, y)` | Spearman's ρ, Pearson's correlation of the mid-ranks |
 | `kendall_tau_b(x, y)` | Kendall's τ_b with ties, by Knight's O(n log n) count of discordant pairs (Knight 1966) |
 
+`exceedance.hpp` ([decision 0012](../development/decisions/0012-exceedance.md)): the average annual loss of a catalogue, the occurrence curve from the years' maxima, the area under a published curve.
+
+`layers.hpp` ([decision 0029](../development/decisions/0029-layers-of-a-loss-and-basis-risk.md)):
+
+| Function | Content |
+|---|---|
+| `layer_loss(L, a, l)`, `Layer{attachment, limit}` | min(max(L − a, 0), l), the part of a loss between a and a + l |
+| `layer_statistics(losses, years, layer, Record::per_year / per_event)` → `LayerStatistics{expected, sd, attachment_rate, exhaustion_rate, share}` | a year's expected layer loss and its spread, per year from the years' own, per event as compound Poisson (Klugman, Panjer and Willmot 2012, §9.3) |
+| `split(losses, attachments)` | each loss over a tower from 0, the parts summing to it |
+| `layer_from_curve(T, L, layer, first_loss, hold_last)` | ∫ P(L > x) dx over the layer, exactly on a published curve under `curve_area`'s conventions |
+| `Payout{trigger, exhaustion, limit}`, `basis_risk(payout, covered, weight)` → `BasisRisk{covered, paid, absolute, rmse, shortfall, excess, missed, unearned, correlation}` | how far a payout on an index is from what an indemnity would pay (Clarke et al. 2016) |
+| `fit_payout(index, covered, limit, weight, grid)` → `FittedPayout{payout, risk, tried}` | the trigger and exhaustion among quantiles of the index of least squared error, by a search on a grid |
+
 ## 3. Checks
 
 `check_tyche_descriptive` (33): the certified means and standard deviations of NIST's nine univariate reference datasets (PiDigits, Lottery, Lew, Mavro, Michelso, NumAcc1–4), to 15 digits where the data are exact in binary and to 8.3 on NumAcc4, whose decimal inputs carry an error of 10⁻⁹ against deviations of 0.1; Hyndman and Fan's nine quantiles of 1, …, 10 at ¼ (3, 3, 2, 2.5, 3, 2.75, 3.25, 35/12, 2.9375) and at 0 and 1; the moments of 1, …, 5 (g₂ = −1.3, G₂ = −1.2) and of a Bernoulli sample; frequency weights against replication, reliability weights, the weighted median; covariance and correlation matrices; a summary.
 
 `check_tyche_rank` (7): mid-ranks by hand; Spearman's ρ against 1 − 6Σd²/(n(n² − 1)) without ties and by hand with them; ρ and τ_b unchanged by increasing maps; τ_b by hand with ties and against the O(n²) count of pairs on 200 samples with ties.
+
+`check_tyche_layers` (16): a tower's parts sum to every loss and its expected losses to the average annual loss; an exponential law's layer, attachment and exhaustion from 400,000 years against their closed forms; per event, the compound Poisson variance, met by simulated Poisson years; from a curve, the layer without limit equal to the curve's area exactly and convergent to the closed form on L(T) = μ ln T; basis risk by hand; a linear payout recovered by `fit_payout`; refusals.
 
 ## 4. Dependencies
 
