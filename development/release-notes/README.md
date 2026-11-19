@@ -13,6 +13,7 @@ A running record, for readers, of what each commit made possible or better. It i
 
 | Date | Commits |
 |---|---|
+| [2026-11-19](2026-11-19.md) | Ideal points from votes, by EM accelerated by SQUAREM, with intervals by a parametric bootstrap |
 | [2026-11-18](2026-11-18.md) | Comparing groups; online control of false discoveries, e-values and the reusable holdout; Layers of a loss and the basis risk of a payout on an index |
 | [2026-11-16](2026-11-16.md) | Which tests to run before separate decisions within a budget; Wilson's and Clopper and Pearson's intervals for a proportion |
 | [2026-11-15](2026-11-15.md) | Bayesian networks and belief functions; decisions in one step and the value of information; linear mixed models; factor analysis and latent classes |

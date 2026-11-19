@@ -38,6 +38,7 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0027](0027-comparing-groups-and-testing-what-a-search-finds.md) | Comparing groups, and testing what a search finds | Accepted, provisionally |
 | [0028](0028-change-of-support-and-estimates-withheld.md) | Change of support, and estimates withheld where they cannot be trusted | Accepted, provisionally |
 | [0029](0029-layers-of-a-loss-and-basis-risk.md) | Layers of a loss (per year and per event, from a record or a published curve) and the basis risk of a payout on an index | Accepted, provisionally |
+| [0030](0030-ideal-points-from-votes.md) | Ideal points from votes: the one-dimensional probit model of roll calls by EM accelerated by SQUAREM, with fit, standardisation and intervals by a parametric bootstrap | Accepted, provisionally |
 
 ## 2. Template
 
