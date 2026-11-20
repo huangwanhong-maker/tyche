@@ -4,6 +4,7 @@
 
 #include <tyche/networks/brokerage.hpp>
 #include <tyche/networks/descriptive.hpp>
+#include <tyche/networks/latent.hpp>
 #include <tyche/networks/mixing.hpp>
 #include <tyche/networks/network.hpp>
 #include <tyche/networks/null_models.hpp>

@@ -89,6 +89,16 @@ const auto test = nw::cug_test(g, [&](const nw::Network& h) { return nw::categor
                                {.conditioning = nw::Conditioning::degrees});
 ```
 
+`latent.hpp` ([decision 0033](../development/decisions/0033-latent-positions-with-their-group.md)):
+
+| Name | Content |
+|---|---|
+| `spectral_embedding(A, d, generalised)` → `Embedding` | the adjacency spectral embedding: `p`, `q` (the signature), `x`, `eigenvalues`, `group()`, `probability(i, j)` |
+| `scree(A)`, `profile_dimension(magnitudes, most)` | the magnitudes of the eigenvalues, and Zhu and Ghodsi's choice of dimension |
+| `act`, `random_orthogonal`, `random_element(p, q)`, `identified(embedding, statistic)` → `Identified` | the group an embedding is identified under, and a statistic tested against it |
+| `procrustes(X, Y)` | the orthogonal alignment of one embedding to another |
+| `bipartite_ordering(M)` | a bipartite incidence's rows ordered by the second eigenvector of the row-to-row walk (the complexity index) |
+
 ## 3. Checks
 
 `check_tyche_network_descriptive` (41): construction (duplicate ties merged, loops and zero weights refused, adjacency round trip, the underlying network, ego networks, degrees); closed forms on a triangle, a star, K₆, directed 3- and 5-cycles, a directed path and a hand-worked reciprocity; the triad classifier on all 64 labelled triads, whose classes have the sizes 3!/|Aut| and are invariant under relabelling, and on the example of each class; Batagelj and Mrvar's census equal to the classification of every triple of 30 random networks, both censuses summing to C(n, 2) and C(n, 3); triangles, transitivity, strong and weak components and core numbers against brute force; cross-checks against networkx 3.7 (`tests/fixtures/make_networkx_fixtures.py`: Zachary's karate club and two seeded random networks; transitivity, clustering, density, reciprocity, triangles, core numbers, the triad census, components).
@@ -96,6 +106,8 @@ const auto test = nw::cug_test(g, [&](const nw::Network& h) { return nw::categor
 `check_tyche_mixing` (28): degree assortativity equal to Newman's (2002) form over edges and to the Pearson correlation of degrees at both ends; +1 on disjoint cliques, −1 on a star and K₂,₅; categorical assortativity +1 and −1 on the same constructions; directed degree assortativity by hand; the E–I index, group indices, complete-network reference and inbreeding homophily worked by hand; Burt's constraint 1/k at a star's centre and 9/8 in a triangle, effective sizes k and 1, Borgatti's n − 2t/n on 20 random networks; cross-checks against networkx's assortativities, constraint and effective size (directed and weighted among them).
 
 `check_tyche_qap` (32): QAP correlation equal to Pearson's over the cells, its exact p-values equal to a count over all 120 relabellings of a 5-node matrix, approached by 20,000 random ones, reproducible by seed, the same from the pairs of symmetric data, and near uniform under independence; MRQAP coefficients as least squares over the cells, the double semi-partialling statistic at the identity equal to the full t, exact p-values (Y-permutation and double semi-partialling) equal to brute-force counts, a real effect found by both procedures, the false-positive rate of an irrelevant correlated matrix near its level; G(n, m) with exactly m ties and uniform over the 20 graphs of three ties on four nodes; swaps keeping every degree, reaching all 70 two-regular graphs on six nodes and drawing two triangles with probability 1/7; CUG tests reproducible by seed, placing a ring lattice's transitivity above every draw under both conditionings and averaging ρ to 0 over random digraphs.
+
+`check_tyche_latent_positions` (13): positions of a random dot product graph recovered after alignment, the error falling as 1/√n; probabilities and distances identified under O(2); the scree's profile likelihood right where the leading eigenvalues are comparable and stopping early where one dominates; a disassortative two-block graph of signature (1, 1), its probabilities identified and its distances not, its estimated probabilities the blocks'; a known rotation recovered exactly; the true dimension chosen; a nested incidence ordered by its diversity.
 
 ## 4. Dependencies
 
