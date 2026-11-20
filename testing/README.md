@@ -43,6 +43,8 @@ The smoothing spline the smoother needs is `regression/smoothing_spline.hpp`.
 
 `holdout.hpp`: `laplace(stream, b)`; `Thresholdout({threshold, sigma, budget}, stream)` with `ask(train, holdout)` → `HoldoutAnswer{value, overfit, spent}`, `saved()` and resumption.
 
+`question_order.hpp` ([decision 0032](../development/decisions/0032-the-order-of-two-questions.md)): `OrderCounts`, `Laws`, `Fit`, `QQ`, `Equivalence`, `Nested`, `OrderAnalysis`; `projective_laws(θ, φ)`; `qq_test`; `qq_equivalence(counts, margin, α)`; `analyse_order(counts, level, margin)`, the saturated, order-free, q = 0 and projective fits, the nested likelihood-ratio tests and a reading that says what was rejected and what was shown.
+
 ## 3. Checks
 
 - `check_tyche_multiple` (28): Bonferroni, Holm and BH against R 4.4.3's p.adjust on 1000 seeded p-values; R qvalue 2.38.0's π̂₀(λ), its smoothed π̂₀ and q-values (to 10⁻⁶, the effect of R's spline penalty weight), the bootstrap's and λ = ½'s exactly; the smoothing spline against an independent exact B-spline solution (10⁻⁹) and against R's smooth.spline (whose `sgram` uses 0.3330 for 1/3: the B-spline solution with that weight is R's to 4·10⁻¹¹); the spline's limits (df → 2, n) and lines reproduced; BH's FDR π₀q and q-values' FDR q by simulation.
@@ -50,6 +52,7 @@ The smoothing spline the smoother needs is `regression/smoothing_spline.hpp`.
 
 - `check_tyche_two_sample`: the weighted mean, Welch's test and the one-sample test against SciPy; Newcombe's interval, the pooled z and the score test against statsmodels; the bootstrap; refusals.
 - `check_tyche_adaptive` (52): the spending sequences' normalisers against mpmath's ζ(1.6) and the sum of Javanmard and Montanari's sequence (partial sums and the exact tail); each rule's levels by hand; the FDR of each rule at α = 0.1 by 2000 replications (e-LOND on equicorrelated tests), α-investing's marginal FDR, SAFFRON and LORD++ more powerful than LOND; the calibrators against mpmath; e-BH by hand and as BH on 1/e; Thresholdout without noise, its budget and resumption, the Laplace draws, and Dwork et al.'s demonstration (the plain holdout rates a classifier of noise at 0.629, Thresholdout at 0.516).
+- `check_tyche_question_order` (14): a projective model's counts giving q = 0 exactly, the plane fitting them as the saturated model does, an order effect read as such; one joint law in both orders with no order effect; a classical Markov update of the first answer breaking the equality and a symmetric anchoring keeping it; the constrained fit keeping q = 0; the z-test's size over 1,000 surveys; the equality shown within 0.05 with 2,000 per order and not with 100.
 
 ## 4. Dependencies
 

@@ -40,6 +40,7 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0029](0029-layers-of-a-loss-and-basis-risk.md) | Layers of a loss (per year and per event, from a record or a published curve) and the basis risk of a payout on an index | Accepted, provisionally |
 | [0030](0030-ideal-points-from-votes.md) | Ideal points from votes: the one-dimensional probit model of roll calls by EM accelerated by SQUAREM, with fit, standardisation and intervals by a parametric bootstrap | Accepted, provisionally |
 | [0031](0031-forecasts-compared.md) | Forecasts compared: the naive forecasts (random walk, mean, fitted AR(1)), rolling one-step forecasts, Newey and West's long-run variance, Diebold and Mariano's test with Harvey, Leybourne and Newbold's correction | Accepted, provisionally |
+| [0032](0032-the-order-of-two-questions.md) | The order of two questions: saturated, order-free, q = 0 and projective models fitted and nested, the QQ equality by its z-test and shown within a margin by two one-sided tests | Accepted, provisionally |
 
 ## 2. Template
 
