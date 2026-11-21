@@ -42,6 +42,7 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0031](0031-forecasts-compared.md) | Forecasts compared: the naive forecasts (random walk, mean, fitted AR(1)), rolling one-step forecasts, Newey and West's long-run variance, Diebold and Mariano's test with Harvey, Leybourne and Newbold's correction | Accepted, provisionally |
 | [0032](0032-the-order-of-two-questions.md) | The order of two questions: saturated, order-free, q = 0 and projective models fitted and nested, the QQ equality by its z-test and shown within a margin by two one-sided tests | Accepted, provisionally |
 | [0033](0033-latent-positions-with-their-group.md) | Latent positions of a network with the group under which they are identified: the adjacency spectral embedding, generalised to signatures (p, q); statistics tested for invariance under the group before they are reported; Procrustes alignment; the profile likelihood of the scree; the bipartite ordering that the complexity index is | Accepted, provisionally |
+| [0034](0034-nested-forecasts-and-conditional-predictive-ability.md) | Nested forecasts and conditional predictive ability: Clark and West's adjusted test between nested models, Giacomini and White's test with test functions | Accepted, provisionally |
 
 ## 2. Template
 
