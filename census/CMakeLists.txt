@@ -1,0 +1,7 @@
+add_library(tyche_census INTERFACE)
+add_library(tyche::census ALIAS tyche_census)
+target_include_directories(tyche_census INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_features(tyche_census INTERFACE cxx_std_20)
+if(TYCHE_CHECKS)
+  tyche_add_check(check_tyche_price SOURCES tests/check_price.cpp LIBRARIES tyche::census morphe::arithmetic calx::random)
+endif()

@@ -43,6 +43,7 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0032](0032-the-order-of-two-questions.md) | The order of two questions: saturated, order-free, q = 0 and projective models fitted and nested, the QQ equality by its z-test and shown within a margin by two one-sided tests | Accepted, provisionally |
 | [0033](0033-latent-positions-with-their-group.md) | Latent positions of a network with the group under which they are identified: the adjacency spectral embedding, generalised to signatures (p, q); statistics tested for invariance under the group before they are reported; Procrustes alignment; the profile likelihood of the scree; the bipartite ordering that the complexity index is | Accepted, provisionally |
 | [0034](0034-nested-forecasts-and-conditional-predictive-ability.md) | Nested forecasts and conditional predictive ability: Clark and West's adjusted test between nested models, Giacomini and White's test with test functions | Accepted, provisionally |
+| [0035](0035-census-records-and-the-price-decomposition.md) | Census records and the Price decomposition: a population at two times with its genealogy (transmission shares, arrivals by source, operators, exit reasons); the change of a character's mean decomposed exactly in four forms (survivors, incumbent, average, declared), with Price's fitness form, selection by nested groups, credits to operators, sources and reasons, the second moment, composed spans; exact in rationals | Accepted, provisionally |
 
 ## 2. Template
 
